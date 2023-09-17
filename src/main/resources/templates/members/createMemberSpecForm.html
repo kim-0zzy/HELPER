@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>InputMemberSpec</title>
+</head>
+<body>
+<form method="post" th:object="${createMemberSpecForm}">
+  height: <input type="number"th:field="*{height}"><br>
+  weight: <input type="number" th:field="*{weight}"><br>
+  waist: <input type="number" th:field="*{waist}"><br>
+  hip: <input type="number" th:field="*{hip}"><br>
+  age: <input type="number" th:field="*{age}"><br>
+  career: <input type="number" th:field="*{career}"><br>
+  times: <input type="number" th:field="*{times}" min="1" max="4"><br>
+  Gender: <input type="text" th:field="*{gender}"><br>
+  Goals: <input type="text" th:field="*{goals}"><br>
+<!--  <p>-->
+<!--    <label>성별:</label>-->
+<!--    <input type="radio" name="gender" id="male" value="남성" th:checked="${gender == 'MALE'}" required />-->
+<!--    <label for="male">남성</label>-->
+<!--    <input type="radio" name="gender" id="female" value="여성" th:checked="${gender == 'FEMALE'}" required />-->
+<!--    <label for="female">여성</label>-->
+<!--  </p>-->
+<!--  <p>-->
+<!--    <label>목표:</label>-->
+<!--    <select name="goal" required>-->
+<!--      <option value="DIET" th:selected="${goal == 'DIET'}">다이어트</option>-->
+<!--      <option value="BULKUP" th:selected="${goal == 'BULKUP'}">벌크업</option>-->
+<!--      <option value="STRENGTH" th:selected="${goal == 'STRENGTH'}">스트렝스</option>-->
+<!--      <option value="ENDURANCE" th:selected="${goal == 'ENDURANCE'}">지구력</option>-->
+<!--    </select>-->
+<!--  </p>-->
+
+  <input type="submit" value="저장하기">
+</form>
+</body>
+</html>
