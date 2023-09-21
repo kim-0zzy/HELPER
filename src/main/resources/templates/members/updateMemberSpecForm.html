@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>InputMemberSpec</title>
+</head>
+<body>
+<form method="post" th:object="${updateMemberSpecForm}">
+  height: <input type="number"th:field="*{height}"><br>
+  weight: <input type="number" th:field="*{weight}"><br>
+  waist: <input type="number" th:field="*{waist}"><br>
+  hip: <input type="number" th:field="*{hip}"><br>
+  age: <input type="number" th:field="*{age}"><br>
+  career: <input type="number" th:field="*{career}"><br>
+  times: <input type="number" th:field="*{times}" min="1" max="4"><br>
+  Gender: <input type="text" th:field="*{gender}"><br>
+  Goals: <input type="text" th:field="*{goals}"><br>
+  <input type="submit" value="저장하기">
+</form>
+<!--<form method="put" th:action="@{'/member/updateMS'}" th:object="${updateMemberSpecForm}">-->
+<!--  height: <input type="number"th:field="*{height}"><br>-->
+<!--  weight: <input type="number" th:field="*{weight}"><br>-->
+<!--  waist: <input type="number" th:field="*{waist}"><br>-->
+<!--  hip: <input type="number" th:field="*{hip}"><br>-->
+<!--  age: <input type="number" th:field="*{age}"><br>-->
+<!--  career: <input type="number" th:field="*{career}"><br>-->
+<!--  times: <input type="number" th:field="*{times}" min="1" max="4"><br>-->
+<!--  Gender: <input type="text" th:field="*{gender}"><br>-->
+<!--  Goals: <input type="text" th:field="*{goals}"><br>-->
+<!--  <input type="hidden" name="updateMS" value="저장하기">-->
+<!--  <button id="put-btn">updateMS</button>-->
+<!--</form>-->
+</body>
+</html>

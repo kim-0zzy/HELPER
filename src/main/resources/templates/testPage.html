@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+<body bgcolor="#4682b4" style="color:rgb(19, 52, 72)"><br><br><br>
+
+<br><br><br>
+<input value="로그인" type="submit" name="login" id="l" style="font-size: 20px; background: #b0e0e6" onclick="window.location.href='/login'">
+<input value="회원가입" type="submit" name="join" id="j" style="font-size: 20px; background: #b0e0e6" onclick="window.location.href='/signup'">
+<input value="신체정보입력" type="submit" name="login" id="q" style="font-size: 20px; background: #b0e0e6" onclick="window.location.href='/member/inputMS'">
+<input value="신체정보재입력" type="submit" name="join" id="w" style="font-size: 20px; background: #b0e0e6" onclick="window.location.href='/member/updateMS'">
+<input value="memberAPI" type="submit" name="login" id="e" style="font-size: 20px; background: #b0e0e6" onclick="window.location.href='/api/test/memberDto'">
+<input value="memberSpecAPI" type="submit" name="join" id="r" style="font-size: 20px; background: #b0e0e6" onclick="window.location.href='/api/test/memberSpecDTO'">
+<input value="routineAPI" type="submit" name="login" id="t" style="font-size: 20px; background: #b0e0e6" onclick="window.location.href='/api/test/routineDTO'">
+<input value="partitionAPI" type="submit" name="join" id="y" style="font-size: 20px; background: #b0e0e6" onclick="window.location.href='/api/test/partitionDTO'">
+<input value="nutritionAPI" type="submit" name="join" id="u" style="font-size: 20px; background: #b0e0e6" onclick="window.location.href='/api/test/nutritionDTO'">
+<input value="calendarAPI" type="submit" name="join" id="i" style="font-size: 20px; background: #b0e0e6" onclick="window.location.href='/api/member/progressList'">
+
+<td>
+    <form id="deleteConnectedMember" th:action="@{'/logout'}" method="post">
+        <input type="hidden" name="_method" value="delete"/>
+        <button id="delete-btn">로그아웃</button>
+    </form>
+</td>
+<td>
+    <form id="saveProgress" th:action="@{'/api/member/saveTodayProgress'}" method="post">
+        <input type="hidden" name="_method" value="post"/>
+        <button id="post-btn">progress</button>
+    </form>
+</td>
+<td>
+    <form id="deleteProgress" th:action="@{'/api/member/deleteTodayProgress'}" method="post">
+        <input type="hidden" name="_method" value="delete"/>
+        <button id="delete">deleteProgress</button>
+    </form>
+</td>
+
+</body>
+</html>
