@@ -16,7 +16,10 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
 
     Page<Community> findCommunityByTitle(String title, Pageable pageable);
     Page<Community> findAll(Pageable pageable);
+<<<<<<< HEAD
     Community findCommunityById(Long id);
+=======
+>>>>>>> 4e46f58d12410f694c5f52c8ee67a3caeb5525ec
 
 // Data-Jpa로 해결할 것임.
 //    public long totalCount(String title){
