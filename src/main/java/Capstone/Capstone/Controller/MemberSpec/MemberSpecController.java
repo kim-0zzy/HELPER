@@ -8,10 +8,11 @@ import Capstone.Capstone.Entity.E_type.Level;
 import Capstone.Capstone.Entity.Member;
 import Capstone.Capstone.Entity.MemberSpec;
 import Capstone.Capstone.Entity.MemberSpecHistory;
-import Capstone.Capstone.Service.ConnectedMemberService;
 import Capstone.Capstone.Service.HistoryService;
 import Capstone.Capstone.Service.MemberSpecService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,6 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class MemberSpecController {
     private final MemberSpecService memberSpecService;
-    private final ConnectedMemberService connectedMemberService;
     private final HistoryService historyService;
 
     @GetMapping("/member/my_spec")
@@ -74,7 +74,8 @@ public class MemberSpecController {
                 goals = Goals.ENDURE;
             }
         }
-        Member member = connectedMemberService.findByConnectedMember();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = (Member)authentication.getPrincipal();
 
         MemberSpec inputMemberSpec = new MemberSpec(member,height,weight,waist,hip,career,age,times,gender,goals);
         Level level = inputMemberSpec.makeLevel();
@@ -99,7 +100,8 @@ public class MemberSpecController {
         if (result.hasErrors()) {
             return "/members/updateMemberSpecForm";
         }
-        Member member = connectedMemberService.findByConnectedMember();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = (Member)authentication.getPrincipal();
         Long memberId = member.getId();
         Gender updateGender = null;
         Goals updateGoals = null;

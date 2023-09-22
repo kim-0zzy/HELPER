@@ -51,12 +51,12 @@ public class MemberServiceImpl implements MemberService{
     public List findOneByRealName(String name) {
         return memberRepository.findByRealName(name);
     }
-    public Optional<Member> findByUsername(String username){
+    public Member findByUsername(String username){
         return memberRepository.findByUsername(username);
     }
     private void validationDuplicateMember(Member member){
-        Optional<Member> findMember = memberRepository.findByUsername(member.getUsername());
-        if(findMember.isPresent()){
+        Member findMember = memberRepository.findByUsername(member.getUsername());
+        if(findMember != null){
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }

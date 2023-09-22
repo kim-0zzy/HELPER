@@ -13,6 +13,6 @@ public interface MemberService {
     public List<Member> findMembers(Member member);
     public Member findOneById(Long id);
     public List<Member> findOneByRealName(String realName);
-    public Optional<Member> findByUsername(String username);
+    public Member findByUsername(String username);
 
 }

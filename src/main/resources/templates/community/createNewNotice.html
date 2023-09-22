@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>createCommunity</title>
+</head>
+<body>
+<form method="post" th:object="${CommunityForm}">
+  title: <input type="number"th:field="*{title}"min="1" max="20"><br>
+  content: <input type="number" th:field="*{content}" min="1" max="180"><br>
+  ot_username: <input type="number" th:field="*{ot_Username} "min="2" max="8"><br>
+  ot_password: <input type="number" th:field="*{ot_Password}" min="4" max="12"><br>
+  <input type="submit" value="저장하기">
+</form>
+</body>
+</html>

@@ -13,5 +13,6 @@ public class MemberDTO {
     public MemberDTO(String realName, String username) {
         this.realName = realName;
         this.username = username;
+
     }
 }
