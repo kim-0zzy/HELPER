@@ -38,6 +38,7 @@ public class HistoryServiceImpl implements HistoryService {
                     .his_weight(memberSpecHistory.getHis_weight())
                     .his_career(memberSpecHistory.getHis_career())
                     .build();
+            memberSpecHistoryDTOList.add(memberSpecHistoryDTO);
         }
         return memberSpecHistoryDTOList;
     }

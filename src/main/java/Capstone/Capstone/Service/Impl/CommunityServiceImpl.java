@@ -9,14 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-<<<<<<< HEAD
-
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
-=======
-import javax.transaction.Transactional;
-import java.time.LocalDateTime;
->>>>>>> 4e46f58d12410f694c5f52c8ee67a3caeb5525ec
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +60,6 @@ public class CommunityServiceImpl implements CommunityService {
         }
         return communityDTOList;
     }
-<<<<<<< HEAD
 
     @Override
     public void saveNotice(Community community) throws NoResultException {
@@ -77,7 +71,4 @@ public class CommunityServiceImpl implements CommunityService {
         return;
     }
 
-
-=======
->>>>>>> 4e46f58d12410f694c5f52c8ee67a3caeb5525ec
 }

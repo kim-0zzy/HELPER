@@ -4,6 +4,7 @@ import Capstone.Capstone.Entity.Community;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 // Data-jpa의 페이지 start point는 0임.
@@ -13,13 +14,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommunityRepository extends JpaRepository<Community, Long> {
 
-
+    @Query("select c from Community c where c.title in :title")
     Page<Community> findCommunityByTitle(String title, Pageable pageable);
     Page<Community> findAll(Pageable pageable);
-<<<<<<< HEAD
-    Community findCommunityById(Long id);
-=======
->>>>>>> 4e46f58d12410f694c5f52c8ee67a3caeb5525ec
 
 // Data-Jpa로 해결할 것임.
 //    public long totalCount(String title){
