@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>신체 정보 입력</title>
+  <link href="style.css" rel="stylesheet">
+  <style>
+    h1 {
+      text-align: center;
+    }
+
+    body {
+      text-align: center;
+      font-size: 20px;
+    }
+
+    input {
+      font-family: "BMJUA";
+    }
+
+  </style>
+  <h2>HEalthy Long PERsist</h2>
+  <h1> HELPER </h1>
+</head>
+<br><br>
+<body bgcolor="#98c3e5" style="color:rgb(19, 52, 72)">
+<h2>신체 정보 수정</h2>
+<br><br>
+<form method="post" th:object="${updateMemberSpecForm}">
+  height: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{height}"><br>
+  weight: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{weight}"><br>
+  waist: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{waist}"><br>
+  hip: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{hip}"><br>
+  age: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{age}"><br>
+  career: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{career}"><br>
+  times: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{times}" min="1" max="4"><br>
+  Gender: <input type="text" style="font-size: 20px; background: #b0e0e6" th:field="*{gender}"><br>
+  Goals: <input type="text" style="font-size: 20px; background: #b0e0e6" th:field="*{goals}"><br>
+  <!-- 성별은 2중1택 버튼으로 꾸며주고 남성 선택시 1반환, 여성 선택시 2반환-->
+  <!-- 목표는 4중1택 버튼으로 꾸며주고 다이어트 1반환 벌크업 2반환 스트랭스 3반환 지구력 4반환-->
+
+  <input type="submit" style="font-size: 20px; background: #b0e0e6" value="저장하기">
+</form>
+</body>
+</html>
+
+

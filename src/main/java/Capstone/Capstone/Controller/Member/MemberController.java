@@ -2,7 +2,9 @@ package Capstone.Capstone.Controller.Member;
 
 import Capstone.Capstone.Controller.Member.Form.CreateMemberForm;
 import Capstone.Capstone.Entity.Member;
+import Capstone.Capstone.Entity.MemberSpec;
 import Capstone.Capstone.Service.MemberService;
+import Capstone.Capstone.Service.MemberSpecService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MemberController {
 
     private final MemberService memberService;
+    private final MemberSpecService memberSpecService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -34,6 +37,14 @@ public class MemberController {
 
     @GetMapping("/mainPage")
     public String mainPage(){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = (Member)authentication.getPrincipal();
+
+        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(member.getId());
+        if(memberSpec == null){
+            return "redirect:/member/recommend";
+        }
         return "/members/mainPage";
     }
 
@@ -55,7 +66,36 @@ public class MemberController {
         return "redirect:/";
     }
 
-//    @GetMapping("/login")
+    @GetMapping("/login")
+    public String login(@RequestParam(value = "error", required = false) String error,
+                        @RequestParam(value = "exception", required = false) String exception, Model model){
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
+
+        return "/members/login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication != null){
+            new SecurityContextLogoutHandler().logout(request,response,authentication);
+        }
+        return "redirect:/";
+    }
+
+//    @GetMapping("/denied")
+//    public String accessDenied(@RequestParam(value = "exception", required = false) String exception, Model model){
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        Member member = (Member)authentication.getPrincipal();
+//        model.addAttribute("username", member.getUsername());
+//        model.addAttribute("exception", exception);
+//
+//        return "/user/login/denied";
+//    }
+
+    //    @GetMapping("/login")
 //    public String loginForm(Model model){
 //        model.addAttribute("loginMemberForm", new LoginMemberForm());
 //        return "/members/loginMemberForm";
@@ -86,32 +126,4 @@ public class MemberController {
 //        return "/lobbyPage";
 //    }
 
-    @GetMapping("/login")
-    public String login(@RequestParam(value = "error", required = false) String error,
-                        @RequestParam(value = "exception", required = false) String exception, Model model){
-        model.addAttribute("error", error);
-        model.addAttribute("exception", exception);
-
-        return "/members/login";
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if(authentication != null){
-            new SecurityContextLogoutHandler().logout(request,response,authentication);
-        }
-        return "redirect:/";
-    }
-
-//    @GetMapping("/denied")
-//    public String accessDenied(@RequestParam(value = "exception", required = false) String exception, Model model){
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        Member member = (Member)authentication.getPrincipal();
-//        model.addAttribute("username", member.getUsername());
-//        model.addAttribute("exception", exception);
-//
-//        return "/user/login/denied";
-//    }
 }

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>my routine</title>
+    <meta charset="utf-8">
+    <link href="style.css" rel="stylesheet">
+    <style>
+        h3 {font-size: 30px;
+            text-align: left;}
+    
+        body {text-align: center;
+        }
+        h1{ font-size: 18px; padding: 20px;}
+        
+        .menu li a {
+            height: 30px;
+            line-height: 30px;
+            display: block;
+            padding: 10px;
+            font-size: 12px;
+            color: #555;
+        }
+        .menu li a:hover { background-color: yellowgreen; color: white;}
+        div {
+            width: 88%; 
+            height: 506px;
+            float: right;
+        
+            border: 1px solid #000;
+            font-size: 20px;
+        }
+
+        nav {
+            position: absolute;
+            top: 92px;
+            width: 140px;
+            background-color: #b0e0e6;
+            border-right: 1px solid #e7e7e700;
+            height: 506px
+        }
+        .board{
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    border: 1px solid #cccccc00;
+}
+ 
+.table{
+    font-size :23px;
+    width: 100%;
+    height: 506px;
+    border: 1px solid rgba(128, 128, 128, 0);    
+    text-align: center;
+    background-color: #445fa8bd;
+}
+tr.days {
+    background: #98c3e5;
+}
+tr.sucess {
+    background: #b8ccf8;
+}
+ 
+td{
+    height: 60px;
+    border-bottom:1px solid black;
+}
+tr:nth-child(2){
+    height: 370px;
+    background: white;
+}
+
+    
+    </style>
+</head>
+
+<body bgcolor="#98c3e5">
+    <header>
+        <h3> HELPER 나의 루틴 </h3>
+    </header>
+    
+    <nav>
+        <h1>MENU</h1>
+        <!--왼쪽 사이드 메뉴바-->
+        <ul class="menu">
+            <li><a href="main_home.html" target="_self" style="font-size: 17px;" >메인 홈</a></li>
+            <li><a href="myRoutine.html" target="_self" style="font-size: 17px;" >나의 루틴</a></li>
+            <li><a href="my_record.html" target="_self" style="font-size: 17px;">나의 기록</a></li>
+            <li><a href="my_food.html" target="_self" style="font-size: 17px;">나의 식단</a></li>
+            <li><a href="heal_pan.html" target="_self" style="font-size: 17px;">헬판</a></li>
+            <li><a href="calender.html" target="_self" style="font-size: 17px;">캘린더</a></li>
+            <li><a href="my_page.html" target="_self" style="font-size: 17px;">나의 페이지</a></li>
+        </ul>
+        <!--왼쪽 사이드 메뉴바-->
+    </nav>
+    <div>
+        <div class="board" style="background-color: #ffffff;;">
+            <table class="table">
+                <thead class="thead">
+                    <tr class="days">
+                        <td>월</td>
+                        <td>화</td>
+                        <td>수</td>
+                        <td>목</td>
+                        <td>금</td>
+                        <td>토</td>
+                        <td>일</td>
+                    </tr>
+                    <tr class="info">
+                        <td>운동내용</td>
+                        <td>운동내용</td>
+                        <td>운동내용</td>
+                        <td>운동내용</td>
+                        <td>운동내용</td>
+                        <td>운동내용</td>
+                        <td>운동내용</td>
+                    </tr>
+                    <tr class="sucess">
+                        <td><input type="checkbox" name="xxx" value="yyy"></td>
+                        <td><input type="checkbox" name="xxx" value="yyy"></td>
+                        <td><input type="checkbox" name="xxx" value="yyy"></td>
+                        <td><input type="checkbox" name="xxx" value="yyy"></td>
+                        <td><input type="checkbox" name="xxx" value="yyy"></td>
+                        <td><input type="checkbox" name="xxx" value="yyy"></td>
+                        <td><input type="checkbox" name="xxx" value="yyy"></td>
+                    </tr>
+                </thead>
+            </table>
+        </div>        
+    </div> 
+
+</body>
+</html>

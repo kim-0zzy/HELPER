@@ -1,0 +1,53 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>회원가입</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<form method="post" th:object="${createMemberForm}">-->
+<!--  RealName: <input type="text" th:field="*{realName}"><br>-->
+<!--  Username: <input type="text" th:field="*{username}"><br>-->
+<!--  Password: <input type="password" th:field="*{password}"><br>-->
+<!--  <input type="submit" value="가입하기">-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+  <link href="style.css" rel="stylesheet">
+  <style>
+    h1 {
+      text-align: center;
+    }
+
+    body {
+      text-align: center;
+      font-size: 20px;
+    }
+
+    input {
+      font-family: "BMJUA";
+    }
+
+  </style>
+  <h2>HEalthy Long PERsist</h2>
+  <h1> HELPER </h1>
+</head>
+<br><br>
+
+<body bgcolor="#98c3e5" style="color:rgb(19, 52, 72)">
+<h2>회원가입</h2>
+<br><br>
+<form method="post" th:object="${createMemberForm}">
+  Username  : &nbsp;<input type="text" style="font-size: 20px; background: #b0e0e6" th:field="*{username}"><br><br><br>
+  &nbsp;&nbsp;UserID  &nbsp;&nbsp;&nbsp;: &nbsp;<input type="text" style="font-size: 20px; background: #b0e0e6" th:field="*{userId}"><br><br><br>
+  Password  : &nbsp;<input type="password" style="font-size: 20px; background: #b0e0e6" th:field="*{password}"><br><br><br><br><br>
+  <input type="submit" value="가입하기" style="font-size: 20px; background: #b0e0e6" onclick="window.location.href='body_check.html'">
+</form>
+</body>
+</html>

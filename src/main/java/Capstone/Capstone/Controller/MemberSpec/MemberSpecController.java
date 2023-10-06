@@ -2,6 +2,9 @@ package Capstone.Capstone.Controller.MemberSpec;
 
 import Capstone.Capstone.Controller.MemberSpec.Form.CreateMemberSpecForm;
 import Capstone.Capstone.Controller.MemberSpec.Form.UpdateMemberSpecForm;
+import Capstone.Capstone.Dto.NutritionDTO;
+import Capstone.Capstone.Dto.PartitionDTO;
+import Capstone.Capstone.Dto.RoutineDTO;
 import Capstone.Capstone.Entity.E_type.Gender;
 import Capstone.Capstone.Entity.E_type.Goals;
 import Capstone.Capstone.Entity.E_type.Level;
@@ -33,16 +36,26 @@ public class MemberSpecController {
         return "/members/mySpec";
     }
 
+    @GetMapping("/member/recommend")
+    public String checkRecommend(){
+        return "/members/recommendCheck";
+    }
+
+    @GetMapping("/member/analyze_complete")
+    public String analyzeComplete(){
+        return "/members/analyze_complete";
+    }
+
     @GetMapping("/member/inputMS")
     public String createMemberSpecForm(Model model){
         model.addAttribute("createMemberSpecForm", new CreateMemberSpecForm());
-        return "/members/createMemberSpecForm";
+        return "/members/memberSpec/createMemberSpecForm";
     }
 
     @PostMapping("/member/inputMS")
     public String createMemberSpec(@Valid CreateMemberSpecForm createMemberSpecForm, BindingResult result) {
         if (result.hasErrors()) {
-            return "/members/createMemberSpecForm";
+            return "/members/memberSpec/createMemberSpecForm";
         }
         int height = createMemberSpecForm.getHeight();
         int weight = createMemberSpecForm.getWeight();
@@ -84,7 +97,7 @@ public class MemberSpecController {
         MemberSpec memberSpec = memberSpecService.createMemberSpec(inputMemberSpec);
         Long id = memberSpecService.saveMemberSpec(memberSpec);
 
-        return "redirect:/members/mySpec";
+        return "redirect:/member/analyze_complete";
         // 수정할 거 있음
         // ex) 생성 후 루틴보러가기 메시지 띄우는거
     }
@@ -92,13 +105,13 @@ public class MemberSpecController {
     @GetMapping("/member/updateMS")
     public String updateMemberSpecForm(Model model){
         model.addAttribute("updateMemberSpecForm", new UpdateMemberSpecForm());
-        return "/members/updateMemberSpecForm";
+        return "/members/memberSpec/updateMemberSpecForm";
     }
 
     @PutMapping("/member/updateMS")
     public String updateMemberSpec(@Valid UpdateMemberSpecForm updateMemberSpecForm, BindingResult result){
         if (result.hasErrors()) {
-            return "/members/updateMemberSpecForm";
+            return "/members/memberSpec/updateMemberSpecForm";
         }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = (Member)authentication.getPrincipal();
@@ -136,4 +149,30 @@ public class MemberSpecController {
         return "redirect:/members/mySpec";
     }
 
+    @GetMapping("/member/myRoutine")
+    public String getMyRoutine(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = (Member)authentication.getPrincipal();
+
+        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(member.getId());
+
+        PartitionDTO partitionDTO = PartitionDTO.builder()
+                .mainPartition(memberSpec.getRoutine().getMainPartition())
+                .subPartition(memberSpec.getRoutine().getSubPartition())
+                .build();
+
+        model.addAttribute(partitionDTO);
+        return "/members/memberSpec/myRoutine";
+    }
+
+    @GetMapping("/member/myNutrition")
+    public String getMyNutrition(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = (Member)authentication.getPrincipal();
+        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(member.getId());
+
+        model.addAttribute(new NutritionDTO(memberSpec.getRoutine().getNutrition()));
+        return "/members/memberSpec/myNutrition";
+    }
 }
+

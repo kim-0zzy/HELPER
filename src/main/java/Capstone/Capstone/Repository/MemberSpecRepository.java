@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,11 +29,14 @@ public class MemberSpecRepository {
 
 
     public MemberSpec findByMemberId(Long id) { // join 한거임
-        return em.createQuery("select ms from MemberSpec ms" +
-                        " join fetch ms.member m"+
-                        " where m.id =: id", MemberSpec.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        try{
+            return em.createQuery("select ms from MemberSpec ms" +
+                            " join fetch ms.member m"+
+                            " where m.id =: id", MemberSpec.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
     }
-
 }
