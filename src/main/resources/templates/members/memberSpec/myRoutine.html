@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>my routine</title>
     <meta charset="utf-8">
-    <link href="style.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
     <style>
         h3 {font-size: 30px;
             text-align: left;}
@@ -82,37 +82,40 @@ tr:nth-child(2){
         <h1>MENU</h1>
         <!--왼쪽 사이드 메뉴바-->
         <ul class="menu">
-            <li><a href="main_home.html" target="_self" style="font-size: 17px;" >메인 홈</a></li>
-            <li><a href="myRoutine.html" target="_self" style="font-size: 17px;" >나의 루틴</a></li>
-            <li><a href="my_record.html" target="_self" style="font-size: 17px;">나의 기록</a></li>
-            <li><a href="my_food.html" target="_self" style="font-size: 17px;">나의 식단</a></li>
-            <li><a href="heal_pan.html" target="_self" style="font-size: 17px;">헬판</a></li>
-            <li><a href="calender.html" target="_self" style="font-size: 17px;">캘린더</a></li>
-            <li><a href="my_page.html" target="_self" style="font-size: 17px;">나의 페이지</a></li>
+            <li><a onclick="window.location.href='/mainPage'" target="_self" style="font-size: 17px;" >메인 홈</a></li>
+            <li><a onclick="window.location.href='/member/myRoutine'" target="_self" style="font-size: 17px;" >나의 루틴</a></li>
+            <li><a onclick="window.location.href='/member/myHistory'" target="_self" style="font-size: 17px;">나의 기록</a></li>
+            <li><a onclick="window.location.href='/member/myNutrition'" target="_self" style="font-size: 17px;">나의 식단</a></li>
+            <li><a onclick="window.location.href='/Community'" target="_self" style="font-size: 17px;">헬판</a></li>
+            <li><a onclick="window.location.href='/member/myCalendar'" target="_self" style="font-size: 17px;">캘린더</a></li>
+            <li><a onclick="window.location.href='/member/myPage'" target="_self" style="font-size: 17px;">나의 정보</a></li>
         </ul>
         <!--왼쪽 사이드 메뉴바-->
     </nav>
+    <span> <!-- ↓ 주 몇회하는지 -->
+        <h1 th:text="${times}"></h1>
+    </span>
     <div>
         <div class="board" style="background-color: #ffffff;;">
             <table class="table">
                 <thead class="thead">
                     <tr class="days">
-                        <td>월</td>
-                        <td>화</td>
-                        <td>수</td>
-                        <td>목</td>
-                        <td>금</td>
-                        <td>토</td>
-                        <td>일</td>
-                    </tr>
-                    <tr class="info">
-                        <td>운동내용</td>
-                        <td>운동내용</td>
-                        <td>운동내용</td>
-                        <td>운동내용</td>
-                        <td>운동내용</td>
-                        <td>운동내용</td>
-                        <td>운동내용</td>
+                        <td>등운동</td>
+                        <td>가슴운동</td>
+                        <td>어깨운동</td>
+                        <td>하체운동</td>
+                        <td>반복수</td>
+                        <td>세트수</td>
+                        <td>유산소</td>
+                    </tr> <!-- 부위별 운동 종목 -->
+                    <tr class="info" th:object="${partition}">
+                        <td th:text="*{getMainPartition().getMainBack()}">등운동</td>
+                        <td th:text="*{getMainPartition().getMainChest()}">가슴운동</td>
+                        <td th:text="*{getMainPartition().getMainShoulder()}">어깨운동</td>
+                        <td th:text="*{getMainPartition().getMainLeg()}">하체운동</td>
+                        <td th:text="*{getMainPartition().getMainReps()}">반복수</td>
+                        <td th:text="*{getMainPartition().getMainSets()}">세트수</td>
+                        <td th:text="*{getMainPartition().getMainAerobic()}">유산소</td>
                     </tr>
                     <tr class="sucess">
                         <td><input type="checkbox" name="xxx" value="yyy"></td>

@@ -2,9 +2,10 @@ package Capstone.Capstone.Controller.MemberSpec;
 
 import Capstone.Capstone.Controller.MemberSpec.Form.CreateMemberSpecForm;
 import Capstone.Capstone.Controller.MemberSpec.Form.UpdateMemberSpecForm;
+import Capstone.Capstone.Dto.MemberSpecDTO;
+import Capstone.Capstone.Dto.MemberSpecHistoryDTO;
 import Capstone.Capstone.Dto.NutritionDTO;
 import Capstone.Capstone.Dto.PartitionDTO;
-import Capstone.Capstone.Dto.RoutineDTO;
 import Capstone.Capstone.Entity.E_type.Gender;
 import Capstone.Capstone.Entity.E_type.Goals;
 import Capstone.Capstone.Entity.E_type.Level;
@@ -14,6 +15,7 @@ import Capstone.Capstone.Entity.MemberSpecHistory;
 import Capstone.Capstone.Service.HistoryService;
 import Capstone.Capstone.Service.MemberSpecService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,19 +34,32 @@ public class MemberSpecController {
     private final MemberSpecService memberSpecService;
     private final HistoryService historyService;
 
-    @GetMapping("/member/my_spec")
-    public String mySpec(){
-        return "/members/mySpec";
+
+    private Long loadLoginMember(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = (Member)authentication.getPrincipal();
+        return member.getId();
     }
 
-    @GetMapping("/member/recommend")
-    public String checkRecommend(){
-        return "/members/recommendCheck";
-    }
+    @GetMapping("/member/myPage")
+    public String mySpec(Model model){
+        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
 
-    @GetMapping("/member/analyze_complete")
-    public String analyzeComplete(){
-        return "/members/analyze_complete";
+        MemberSpecDTO memberSpecDTO =  MemberSpecDTO.builder()
+                .height(memberSpec.getHeight())
+                .weight(memberSpec.getWeight())
+                .waist(memberSpec.getWaist())
+                .hip(memberSpec.getHip())
+                .career(memberSpec.getCareer() / 100)
+                .age(memberSpec.getAge())
+                .times(memberSpec.getTimes())
+                .gender(memberSpec.getGender())
+                .goals(memberSpec.getGoals())
+                .level(memberSpec.getLevel())
+                .build();
+
+        model.addAttribute("memberSpec",memberSpecDTO);
+        return "/members/memberSpec/myPage";
     }
 
     @GetMapping("/member/inputMS")
@@ -97,7 +113,7 @@ public class MemberSpecController {
         MemberSpec memberSpec = memberSpecService.createMemberSpec(inputMemberSpec);
         Long id = memberSpecService.saveMemberSpec(memberSpec);
 
-        return "redirect:/member/analyze_complete";
+        return "redirect:/analyzeComplete";
         // 수정할 거 있음
         // ex) 생성 후 루틴보러가기 메시지 띄우는거
     }
@@ -113,9 +129,8 @@ public class MemberSpecController {
         if (result.hasErrors()) {
             return "/members/memberSpec/updateMemberSpecForm";
         }
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = (Member)authentication.getPrincipal();
-        Long memberId = member.getId();
+        Long memberId = loadLoginMember();
+
         Gender updateGender = null;
         Goals updateGoals = null;
         switch (updateMemberSpecForm.getGender()) {
@@ -151,28 +166,36 @@ public class MemberSpecController {
 
     @GetMapping("/member/myRoutine")
     public String getMyRoutine(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = (Member)authentication.getPrincipal();
 
-        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(member.getId());
+        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
 
+        int times = memberSpec.getTimes();
         PartitionDTO partitionDTO = PartitionDTO.builder()
                 .mainPartition(memberSpec.getRoutine().getMainPartition())
                 .subPartition(memberSpec.getRoutine().getSubPartition())
                 .build();
 
-        model.addAttribute(partitionDTO);
+        model.addAttribute("times", times);
+        model.addAttribute("partition",partitionDTO);
         return "/members/memberSpec/myRoutine";
     }
 
     @GetMapping("/member/myNutrition")
     public String getMyNutrition(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = (Member)authentication.getPrincipal();
-        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(member.getId());
 
-        model.addAttribute(new NutritionDTO(memberSpec.getRoutine().getNutrition()));
+        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
+
+        model.addAttribute("nutrition",new NutritionDTO(memberSpec.getRoutine().getNutrition()));
         return "/members/memberSpec/myNutrition";
+    }
+
+    @GetMapping("/member/myHistory")
+    public String getMyHistory(Model model){
+        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
+        List<MemberSpecHistoryDTO> historyDTOList = historyService.findAllHistory(memberSpec.getId());
+
+        model.addAttribute("HistoryList", historyDTOList);
+        return "/members/memberSpec/myHistory";
     }
 }
 

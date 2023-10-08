@@ -61,7 +61,19 @@ public class CalendarServiceImpl implements CalendarService {
 
     @Override
     public List findMonthlyRecord(Long id, int year, int month) throws NoResultException{
-        return calendarRepository.findByOwnerIdWithYM(id, year, month);
+        List<Calendar> all = calendarRepository.findByOwnerIdWithYM(id,LocalDate.now().getYear(), LocalDate.now().getMonthValue());
+        List<CalendarDTO> calendarDTOList = new ArrayList<>();
+
+        for (Calendar calendar : all) {
+            CalendarDTO calendarDTO = CalendarDTO.builder()
+                    .act_Day(calendar.getAct_Day())
+                    .act_Month(calendar.getAct_Month())
+                    .act_Year(calendar.getAct_Year())
+                    .progress(calendar.getProgress())
+                    .build();
+            calendarDTOList.add(calendarDTO);
+        }
+        return calendarDTOList;
     }
 
     @Override

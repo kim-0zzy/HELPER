@@ -25,13 +25,13 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public List<CommunityDTO> findByTitle(String title) {
         PageRequest pageRequest = PageRequest.of(0, 20, Sort.by(Sort.Direction.DESC, "createDate"));
-        Page<Community> page = communityRepository.findCommunityByTitle(title, pageRequest); 
+        Page<Community> page = communityRepository.findByTitle(title, pageRequest);
         List<Community> content = page.getContent();
         List<CommunityDTO> communityDTOList = new ArrayList<>();
         for (Community community : content) {
             CommunityDTO communityDTO = CommunityDTO.builder()
+                    .id(community.getId())
                     .ot_Username(community.getOt_Username())
-                    .ot_Password(community.getOt_Password())
                     .title(community.getTitle())
                     .content(community.getContent())
                     .createDate(community.getCreateDate())
@@ -50,8 +50,8 @@ public class CommunityServiceImpl implements CommunityService {
         List<CommunityDTO> communityDTOList = new ArrayList<>();
         for (Community community : content) {
             CommunityDTO communityDTO = CommunityDTO.builder()
+                    .id(community.getId())
                     .ot_Username(community.getOt_Username())
-                    .ot_Password(community.getOt_Password())
                     .title(community.getTitle())
                     .content(community.getContent())
                     .createDate(community.getCreateDate())
@@ -62,13 +62,45 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    public List<CommunityDTO> findRecently5() {
+        PageRequest pageRequest = PageRequest.of(0, 5);
+        Page<Community> page = communityRepository.findFirst5By(pageRequest);
+        List<Community> content = page.getContent();
+        List<CommunityDTO> communityDTOList = new ArrayList<>();
+        for (Community community : content) {
+            CommunityDTO communityDTO = CommunityDTO.builder()
+                    .id(community.getId())
+                    .ot_Username(community.getOt_Username())
+                    .title(community.getTitle())
+                    .content(community.getContent())
+                    .createDate(community.getCreateDate())
+                    .build();
+            communityDTOList.add(communityDTO);
+        }
+        return communityDTOList;
+    }
+
+    @Override
+    public CommunityDTO findByIdWithTitle(Long id, String title) {
+        Community community = communityRepository.findByIdAndTitle(id, title);
+        CommunityDTO communityDto = CommunityDTO.builder()
+                .id(community.getId())
+                .ot_Username(community.getOt_Username())
+                .title(community.getTitle())
+                .content(community.getContent())
+                .createDate(community.getCreateDate())
+                .build();
+        return communityDto;
+    }
+
+    @Override
     public void saveNotice(Community community) throws NoResultException {
         communityRepository.save(community);
     }
 
     @Override
-    public void deleteNotice(Community community) throws NoResultException {
-        return;
+    public void deleteNotice(Long id, String title) throws NoResultException {
+        communityRepository.deleteByIdAndTitle(id, title);
     }
 
 }

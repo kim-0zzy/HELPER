@@ -2,9 +2,7 @@ package Capstone.Capstone.Controller.Member;
 
 import Capstone.Capstone.Controller.Member.Form.CreateMemberForm;
 import Capstone.Capstone.Entity.Member;
-import Capstone.Capstone.Entity.MemberSpec;
 import Capstone.Capstone.Service.MemberService;
-import Capstone.Capstone.Service.MemberSpecService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,32 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 public class MemberController {
 
     private final MemberService memberService;
-    private final MemberSpecService memberSpecService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @GetMapping("/")
-    public String lobby(){
-        return "/lobbyPage";
-    }
-
-    @GetMapping("/mainPage")
-    public String mainPage(){
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = (Member)authentication.getPrincipal();
-
-        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(member.getId());
-        if(memberSpec == null){
-            return "redirect:/member/recommend";
-        }
-        return "/members/mainPage";
-    }
-
-    @GetMapping("/testPage")
-    public String testPage(){
-        return "/testPage";
-    }
 
     @GetMapping("/signup")
     public String createForm(Model model){

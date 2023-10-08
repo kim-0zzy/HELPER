@@ -11,15 +11,15 @@ import java.time.LocalDateTime;
 @Builder
 public class CommunityDTO {
 
+    private Long id;
     private String ot_Username;
-    private String ot_Password;
     private String title;
     private String content;
     private LocalDateTime createDate;
 
-    public CommunityDTO(String ot_Username, String ot_Password, String title, String content, LocalDateTime createDate) {
+    public CommunityDTO(Long id, String ot_Username, String title, String content, LocalDateTime createDate) {
+        this.id = id;
         this.ot_Username = ot_Username;
-        this.ot_Password = ot_Password;
         this.title = title;
         this.content = content;
         this.createDate = createDate;

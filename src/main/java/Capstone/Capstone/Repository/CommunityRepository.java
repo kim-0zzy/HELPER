@@ -1,5 +1,6 @@
 package Capstone.Capstone.Repository;
 
+import Capstone.Capstone.Dto.CommunityDTO;
 import Capstone.Capstone.Entity.Community;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,8 +16,12 @@ import org.springframework.stereotype.Repository;
 public interface CommunityRepository extends JpaRepository<Community, Long> {
 
     @Query("select c from Community c where c.title in :title")
-    Page<Community> findCommunityByTitle(String title, Pageable pageable);
+    Page<Community> findByTitle(String title, Pageable pageable);
     Page<Community> findAll(Pageable pageable);
+    @Query("select c from Community c order by c.createDate asc")
+    Page<Community> findFirst5By(Pageable pageable);
+    Community findByIdAndTitle(Long id, String title);
+    void deleteByIdAndTitle(Long id, String title);
 
 // Data-Jpa로 해결할 것임.
 //    public long totalCount(String title){

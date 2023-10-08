@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <title>my food</title>
+    <title>my page</title>
     <meta charset="utf-8">
     <link href="/static/css/style.css" rel="stylesheet">
     <style>
@@ -49,10 +49,11 @@
     
     </style>
 </head>
-    <h3> HELPER 나의 식단</h3>
 
 <body bgcolor="#98c3e5">
-    
+    <header>
+        <h3> HELPER 나의 페이지 </h3>
+    </header>
     <nav>
         <h1>MENU</h1>
         <!--왼쪽 사이드 메뉴바-->
@@ -68,9 +69,8 @@
         <!--왼쪽 사이드 메뉴바-->
     </nav>
     <div>
-        <p th:text="${nutrition.getNutrition().getCarbohydrate()}"> 탄수화물(g) </p>
-        <p th:text="${nutrition.getNutrition().getFat()}"> 지방(g) </p>
-        <p th:text="${nutrition.getNutrition().getProtein()}"> 단백질(g) </p>
+        <div class="left" style="background-color: #ddd;;"> <br> </div>
+        <div class="right" style="background-color: #ddd;;"> <br> </div>
     </div> 
 
 </body>

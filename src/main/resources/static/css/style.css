@@ -1,6 +1,6 @@
 @font-face { 
     font-family: 'BMJUA';
-    src:url("fonts/BMJUA_otf.otf")
+    src:url("/static/fonts/BMJUA_otf.otf")
 }
 html {
     font-family: "BMJUA";
