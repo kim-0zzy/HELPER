@@ -34,8 +34,17 @@ public class MemberSpecHistory {
         this.his_career = his_career;
     }
 
+    public void setHistory(int make_Year, int make_Month, int make_Day, int his_career, int his_weight){
+        this.make_Year = LocalDate.now().getYear();
+        this.make_Month = LocalDate.now().getMonth().getValue();
+        this.make_Day = LocalDate.now().getDayOfMonth();
+        this.his_weight = his_weight;
+        this.his_career = his_career;
+    }
+
     public void setMemberSpec(MemberSpec memberSpec) {
         this.memberSpec = memberSpec;
         memberSpec.getHistory().add(this);
     }
+
 }

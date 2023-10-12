@@ -36,10 +36,32 @@ public class HistoryServiceImpl implements HistoryService {
                     .make_Month(memberSpecHistory.getMake_Month())
                     .make_Day(memberSpecHistory.getMake_Day())
                     .his_weight(memberSpecHistory.getHis_weight())
-                    .his_career(memberSpecHistory.getHis_career())
+                    .his_career(memberSpecHistory.getHis_career() / 100)
                     .build();
             memberSpecHistoryDTOList.add(memberSpecHistoryDTO);
         }
         return memberSpecHistoryDTOList;
+    }
+
+    @Override
+    public MemberSpecHistoryDTO findFirstRecord(Long id) {
+        MemberSpecHistory firstRecord = historyRepository.findFirst(id);
+        if (firstRecord == null){
+            return null;
+        }else{
+            return MemberSpecHistoryDTO.builder()
+                    .make_Year(firstRecord.getMake_Year())
+                    .make_Month(firstRecord.getMake_Month())
+                    .make_Day(firstRecord.getMake_Day())
+                    .his_career(firstRecord.getHis_career() / 100)
+                    .his_weight(firstRecord.getHis_weight())
+                    .build();
+        }
+    }
+
+    @Override
+    public MemberSpecHistory findFirstRecord_V2(Long id) {
+        MemberSpecHistory firstRecord = historyRepository.findFirst(id);
+        return firstRecord;
     }
 }

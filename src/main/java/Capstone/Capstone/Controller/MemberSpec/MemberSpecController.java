@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -58,7 +60,26 @@ public class MemberSpecController {
                 .level(memberSpec.getLevel())
                 .build();
 
+        MemberSpecHistoryDTO memberSpecHistoryDTO = historyService.findFirstRecord(memberSpec.getId());
+
+        int beforeCareer = memberSpecDTO.getCareer() - memberSpecHistoryDTO.getHis_career();
+        int beforeWeight = memberSpecDTO.getWeight() - memberSpecHistoryDTO.getHis_weight();
+        double muscleNervous = 0;
+        // 근신경계
+
+        if(memberSpecDTO.getCareer() > 30) {
+            muscleNervous = 100;
+        }else{
+            muscleNervous = memberSpecDTO.getCareer() * 3.3;
+        }
+
+        // 근육량
+        double muscleMass = (memberSpecDTO.getCareer() - memberSpecHistoryDTO.getHis_career()) * 0.3 ;
+
+
         model.addAttribute("memberSpec",memberSpecDTO);
+        model.addAttribute("muscleNervous", muscleNervous);
+        model.addAttribute("muscleMass", muscleMass);
         return "/members/memberSpec/myPage";
     }
 
@@ -110,6 +131,10 @@ public class MemberSpecController {
         Level level = inputMemberSpec.makeLevel();
         inputMemberSpec.setLevel(level);
 
+        MemberSpecHistory history = new MemberSpecHistory(weight, career);
+        history.setMemberSpec(inputMemberSpec);
+        historyService.saveHistory(history);
+
         MemberSpec memberSpec = memberSpecService.createMemberSpec(inputMemberSpec);
         Long id = memberSpecService.saveMemberSpec(memberSpec);
 
@@ -124,12 +149,14 @@ public class MemberSpecController {
         return "/members/memberSpec/updateMemberSpecForm";
     }
 
+    @Transactional
     @PutMapping("/member/updateMS")
     public String updateMemberSpec(@Valid UpdateMemberSpecForm updateMemberSpecForm, BindingResult result){
         if (result.hasErrors()) {
             return "/members/memberSpec/updateMemberSpecForm";
         }
         Long memberId = loadLoginMember();
+        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(memberId);
 
         Gender updateGender = null;
         Goals updateGoals = null;
@@ -156,12 +183,65 @@ public class MemberSpecController {
                 updateMemberSpecForm.getWeight(),updateMemberSpecForm.getWaist(),updateMemberSpecForm.getHip(),
                 updateMemberSpecForm.getCareer() * 100,updateMemberSpecForm.getAge(),updateMemberSpecForm.getTimes(),
                 updateGender,updateGoals);
-        MemberSpecHistory history = new MemberSpecHistory(updateMemberSpecForm.getWeight(), updateMemberSpecForm.getCareer());
+
+        MemberSpecHistory history = new MemberSpecHistory(updateMemberSpecForm.getWeight(), updateMemberSpecForm.getCareer() * 100);
+        history.setMemberSpec(memberSpec);
         historyService.saveHistory(history);
-        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(memberId);
+
+
         memberSpec.makeLevel();
         Level level = memberSpec.getLevel();
         return "redirect:/members/mySpec";
+    }
+
+    @GetMapping("/member/reEnterMS")
+    public String reEnterMemberSpecForm(Model model){
+        model.addAttribute("reEnterMemberSpecForm", new UpdateMemberSpecForm());
+        return "/members/memberSpec/updateMemberSpecForm";
+    }
+    @Transactional
+    @PutMapping("/member/reEnterMS")
+    public String reEnterMemberSpec(@Valid UpdateMemberSpecForm reEnterMemberSpecForm, BindingResult result){
+        if (result.hasErrors()) {
+            return "/members/memberSpec/updateMemberSpecForm";
+        }
+        Long memberId = loadLoginMember();
+
+        Gender updateGender = null;
+        Goals updateGoals = null;
+        switch (reEnterMemberSpecForm.getGender()) {
+            case "MALE" -> {
+                updateGender = Gender.MALE;
+            }
+            case "FEMALE" ->{
+                updateGender = Gender.FEMALE;
+            }
+        }
+        switch (reEnterMemberSpecForm.getGoals()) {
+            case "DIET" -> {
+                updateGoals = Goals.DIET;
+            }case "BULKUP" ->{
+                updateGoals = Goals.BULKUP;
+            }case "STRENGTH" ->{
+                updateGoals = Goals.STRENGTH;
+            }case "ENDURANCE" ->{
+                updateGoals = Goals.ENDURE;
+            }
+        }
+        memberSpecService.updateBasicMemberSpec(memberId,reEnterMemberSpecForm.getHeight(),
+                reEnterMemberSpecForm.getWeight(),reEnterMemberSpecForm.getWaist(),reEnterMemberSpecForm.getHip(),
+                reEnterMemberSpecForm.getCareer() * 100,reEnterMemberSpecForm.getAge(),reEnterMemberSpecForm.getTimes(),
+                updateGender,updateGoals);
+
+        MemberSpecHistory firstRecord = historyService.findFirstRecord_V2(memberId);
+        firstRecord.setHistory(LocalDateTime.now().getYear(), LocalDateTime.now().getMonthValue(), LocalDateTime.now().getDayOfMonth(),
+                reEnterMemberSpecForm.getCareer() * 100, reEnterMemberSpecForm.getWeight());
+        Long historyId = firstRecord.getId();
+
+        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(memberId);
+        memberSpec.makeLevel();
+        Level level = memberSpec.getLevel();
+        return "redirect:/analyzeComplete";
     }
 
     @GetMapping("/member/myRoutine")

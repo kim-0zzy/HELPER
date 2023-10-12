@@ -14,14 +14,14 @@ public class ApiCommunityController {
 
     private final CommunityService communityService;
 
-    @GetMapping("/api/community/loadAllNotice")
-    public List<CommunityDTO> getAllNotice(){
-        return communityService.findAllNotice();
-    }
+//    @GetMapping("/api/community/loadAllNotice")
+//    public List<CommunityDTO> getAllNotice(){
+//        return communityService.findAllNotice();
+//    }
 
-    @GetMapping("/api/community/loadNoticeByTitle")
-    public List<CommunityDTO> getNoticeByTitle(String title) {
-        return communityService.findByTitle(title);
-    }
+//    @GetMapping("/api/community/loadNoticeByTitle")
+//    public List<CommunityDTO> getNoticeByTitle(String title) {
+//        return communityService.findByTitle(title);
+//    }
 
 }

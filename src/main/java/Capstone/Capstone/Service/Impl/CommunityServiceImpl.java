@@ -23,47 +23,23 @@ public class CommunityServiceImpl implements CommunityService {
     private final CommunityRepository communityRepository;
 
     @Override
-    public List<CommunityDTO> findByTitle(String title) {
-        PageRequest pageRequest = PageRequest.of(0, 20, Sort.by(Sort.Direction.DESC, "createDate"));
+    public Page<Community> findByTitle(String title, int pageNum) {
+        PageRequest pageRequest = PageRequest.of(pageNum, 10, Sort.by(Sort.Direction.DESC, "createDate"));
         Page<Community> page = communityRepository.findByTitle(title, pageRequest);
-        List<Community> content = page.getContent();
-        List<CommunityDTO> communityDTOList = new ArrayList<>();
-        for (Community community : content) {
-            CommunityDTO communityDTO = CommunityDTO.builder()
-                    .id(community.getId())
-                    .ot_Username(community.getOt_Username())
-                    .title(community.getTitle())
-                    .content(community.getContent())
-                    .createDate(community.getCreateDate())
-                    .build();
-            communityDTOList.add(communityDTO);
-        }
-        return communityDTOList;
-        // 페이지, 사이즈, 소팅기준 생각하기.
+        return page;
     }
 
     @Override
-    public List<CommunityDTO> findAllNotice() {
-        PageRequest pageRequest = PageRequest.of(0, 20, Sort.by(Sort.Direction.DESC, "createDate"));
+    public Page<Community> findAllNotice(int pageNum) {
+        PageRequest pageRequest = PageRequest.of(pageNum, 10, Sort.by(Sort.Direction.DESC, "createDate"));
         Page<Community> page = communityRepository.findAll(pageRequest);
-        List<Community> content = page.getContent();
-        List<CommunityDTO> communityDTOList = new ArrayList<>();
-        for (Community community : content) {
-            CommunityDTO communityDTO = CommunityDTO.builder()
-                    .id(community.getId())
-                    .ot_Username(community.getOt_Username())
-                    .title(community.getTitle())
-                    .content(community.getContent())
-                    .createDate(community.getCreateDate())
-                    .build();
-            communityDTOList.add(communityDTO);
-        }
-        return communityDTOList;
+        return page;
     }
 
     @Override
     public List<CommunityDTO> findRecently5() {
         PageRequest pageRequest = PageRequest.of(0, 5);
+
         Page<Community> page = communityRepository.findFirst5By(pageRequest);
         List<Community> content = page.getContent();
         List<CommunityDTO> communityDTOList = new ArrayList<>();
@@ -102,5 +78,50 @@ public class CommunityServiceImpl implements CommunityService {
     public void deleteNotice(Long id, String title) throws NoResultException {
         communityRepository.deleteByIdAndTitle(id, title);
     }
+
+//    @Override
+//    public List<CommunityDTO> findByTitle(String title) {
+//        PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "createDate"));
+//        Page<Community> page = communityRepository.findByTitle(title, pageRequest);
+//        List<Community> content = page.getContent();
+//        List<CommunityDTO> communityDTOList = new ArrayList<>();
+//        for (Community community : content) {
+//            CommunityDTO communityDTO = CommunityDTO.builder()
+//                    .id(community.getId())
+//                    .ot_Username(community.getOt_Username())
+//                    .title(community.getTitle())
+//                    .content(community.getContent())
+//                    .createDate(community.getCreateDate())
+//                    .build();
+//            communityDTOList.add(communityDTO);
+//        }
+//        return communityDTOList;
+//        // 페이지, 사이즈, 소팅기준 생각하기.
+//    }
+//
+//    @Override
+//    public List<CommunityDTO> findAllNotice() {
+//        PageRequest pageRequest = PageRequest.of(0, 20, Sort.by(Sort.Direction.DESC, "createDate"));
+//        Page<Community> page = communityRepository.findAll(pageRequest);
+//        List<Community> content = page.getContent();
+//        List<CommunityDTO> communityDTOList = new ArrayList<>();
+//        for (Community community : content) {
+//            CommunityDTO communityDTO = CommunityDTO.builder()
+//                    .id(community.getId())
+//                    .ot_Username(community.getOt_Username())
+//                    .title(community.getTitle())
+//                    .content(community.getContent())
+//                    .createDate(community.getCreateDate())
+//                    .build();
+//            communityDTOList.add(communityDTO);
+//        }
+//        return communityDTOList;
+//    }
+//
+
+//
+
+//
+
 
 }

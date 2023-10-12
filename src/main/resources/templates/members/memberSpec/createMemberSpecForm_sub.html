@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>setting page</title>
+    <meta charset="utf-8">
+    <link href="style.css" rel="stylesheet">
+    <style>
+        h1 {text-align: center; color: rgb(19, 52, 72); font-size:40px;}
+        body {text-align: center;}
+        td {height: 280px;}
+        table {margin: auto;}
+        select{font-family: "BMJUA";
+            width: 30%; 
+            height: 30%;
+        }
+        label[id="gender"] {
+            position: absolute;
+            top: 70px; 
+            left: 150px;
+            color: #2d3536; 
+            font-size: 20px; 
+        }
+        a [id="n"]{
+            position: absolute;
+            bottom: 100px; 
+            right: 150px;
+            width: 10%; 
+            height: 4%;
+            font-size: 17px;
+            font-family: "BMJUA";
+            background-color: #b0e0e6;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head><br>
+
+<h1> Body check!! </h1><br><br>
+
+<body bgcolor="#98c3e5" style="color:rgb(26, 77, 109)">
+    <p>
+        <label id="gender" th:field="*{gender}">성별 : &nbsp;&nbsp;&nbsp;
+        <input type="radio" name="male" value="1" th:field="*{gender}"> 남성 &nbsp;
+        <input type="radio"  name="female" value="2" th:field="*{gender}"> 여성 
+        </label> 
+    </p>
+    <br>
+    <section>
+        <article>
+            <table border="2" style = "width:80%; font-size: 20px; background-color: #b0e0e6;">
+                <tr>
+                    <td>키<br><br><input type="number" th:field="*{height}">cm<br><br></td>
+                    <td>몸무게<br><br><input type="number" th:field="*{weight}">kg<br><br></td>
+                    <td>허리둘레<br><br><input type="number" th:field="*{waist}">cm<br><br></td>
+                    <td>엉덩이 둘레<br><br><input type="number" th:field="*{hip}">cm<br><br></td>
+                </tr>
+                <tr>
+                    <td>나이<br><br><input type="number" th:field="*{age}">세<br><br></td>
+                    <td>시간<br><br><input type="number" th:field="*{times}" min="1" max="4">시간<br><br></td>
+                    
+                    <td><label class="reg" for="purpose">운동 목적</label><br><br>
+                        <select size="4" id="purpose" style="font-size: 15px;" multiple th:field="*{goals}">
+                            <option value="1">다이어트</option>
+                            <option value="2">벌크업</option>
+                            <option value="3">스트랭스</option>
+                            <option value="4">지구력</option>
+                        </select></td>
+                    <td><label class="reg" for="career">운동 경력</label><br><br>
+                        <select size="4" id="career" style="font-size: 15px;" multiple th:field="*{career}">
+                            <option value="1">6개월 미만</option>
+                            <option value="2">1년 미만</option>
+                            <option value="3">...</option>
+                            <option value="4">n년</option>
+                        </select></td>
+                </tr>
+            </table>
+        </article>
+    </section>
+    <a href="routine_road.html" target="_self"><input value="루틴생성 / 저장" id="n" type="submit" name="next"></a>
+</body>
+</html>

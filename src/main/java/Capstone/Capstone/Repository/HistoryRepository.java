@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository
@@ -22,5 +23,19 @@ public class HistoryRepository {
                         " where ms.id =: id", MemberSpecHistory.class)
                 .setParameter("id", id)
                 .getResultList();
+    }
+
+    public MemberSpecHistory findFirst(Long id){
+        try{
+            return em.createQuery("select msh from MemberSpecHistory msh"+
+                            " join fetch msh.memberSpec ms"+
+                            " where ms.id =: id " +
+                            "order by msh.make_Year DESC, msh.make_Month DESC , msh.make_Day desc "
+                            , MemberSpecHistory.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
     }
 }
