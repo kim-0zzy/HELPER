@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Navbar</title>
+    <style>
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f2f2f2;
+            padding: 10px;
+        }
+
+        .logo {
+            font-weight: bold;
+            margin-right: auto;
+        }
+
+        .menu {
+            display: flex;
+        }
+
+        .menu a {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <div class="logo">
+        HEalthy Long PERsist
+    </div>
+
+    <div class="menu">
+        <a class="nav-link text-light" onclick="window.location.href='/logout'">로그아웃</a>
+        <a class="nav-link text-light" onclick="window.location.href='/mainPage'">메인홈</a>
+        <a class="nav-link text-light" onclick="window.location.href='/member/myRoutine'">나의 루틴</a>
+        <a class="nav-link text-light" onclick="window.location.href='/member/myHistory'">나의 기록</a>
+        <a class="nav-link text-light" onclick="window.location.href='/member/myNutrition'">나의 식단</a>
+        <a class="nav-link text-light" onclick="window.location.href='/member/myPage'">나의 정보</a>
+        <a class="nav-link text-light" onclick="window.location.href='/member/myCalendar'">나의 달력</a>
+        <a class="nav-link text-light" onclick="window.location.href='/mainPage'">헬판</a>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

@@ -30,7 +30,7 @@ public class CommunityController {
     @GetMapping("/community/page={pageNum}")
     public String getCommunityPage(Model model, @PathVariable("pageNum") int pageNum){
         // 커뮤니티 페이지 클릭 시 페이지 번호 0 전달
-        Page<Community> page = communityService.findAllNotice(pageNum);
+        Page<Community> page = communityService.findAllNotice(pageNum - 1);
         List<Community> content = page.getContent();
         List<CommunityDTO> allNotice = new ArrayList<>();
         for (Community community : content) {
