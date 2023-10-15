@@ -26,16 +26,16 @@
 <body bgcolor="#98c3e5" style="color:rgb(19, 52, 72)">
 <h2>신체 정보 수정</h2>
 <br><br>
-<form method="post" th:object="${updateMemberSpecForm}">
-  height: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{height}"><br>
-  weight: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{weight}"><br>
-  waist: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{waist}"><br>
-  hip: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{hip}"><br>
-  age: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{age}"><br>
-  career: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{career}"><br>
-  times: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{times}" min="1" max="4"><br>
-  Gender: <input type="text" style="font-size: 20px; background: #b0e0e6" th:field="*{gender}"><br>
-  Goals: <input type="text" style="font-size: 20px; background: #b0e0e6" th:field="*{goals}"><br>
+<form method="post" th:object="${savedMemberSpec}">
+  height: <input type="number" th:value="*{height}" style="font-size: 20px; background: #b0e0e6"  name="height"><br>
+  weight: <input type="number" th:value="*{weight}" style="font-size: 20px; background: #b0e0e6"  name="weight"><br>
+  waist: <input type="number" th:value="*{waist}" style="font-size: 20px; background: #b0e0e6"  name="waist"><br>
+  hip: <input type="number" th:value="*{hip}" style="font-size: 20px; background: #b0e0e6"  name="hip"><br>
+  age: <input type="number" th:value="*{age}" style="font-size: 20px; background: #b0e0e6"  name="age"><br>
+  career: <input type="number" th:value="*{career}" style="font-size: 20px; background: #b0e0e6"  name="career"><br>
+  times: <input type="number" th:value="*{times}" style="font-size: 20px; background: #b0e0e6"  name="times" min="1" max="4"><br>
+  Gender: <input type="text" th:value="*{gender}" style="font-size: 20px; background: #b0e0e6"  name="gender"><br>
+  Goals: <input type="text" th:value="*{goals}" style="font-size: 20px; background: #b0e0e6"  name="goals"><br>
   <!-- 성별은 2중1택 버튼으로 꾸며주고 남성 선택시 1반환, 여성 선택시 2반환-->
   <!-- 목표는 4중1택 버튼으로 꾸며주고 다이어트 1반환 벌크업 2반환 스트랭스 3반환 지구력 4반환-->
 

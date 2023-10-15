@@ -24,6 +24,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -145,13 +146,32 @@ public class MemberSpecController {
 
     @GetMapping("/member/updateMS")
     public String updateMemberSpecForm(Model model){
+        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
+        MemberSpecDTO memberSpecDTO =  MemberSpecDTO.builder()
+                .height(memberSpec.getHeight())
+                .weight(memberSpec.getWeight())
+                .waist(memberSpec.getWaist())
+                .hip(memberSpec.getHip())
+                .career(memberSpec.getCareer() / 100)
+                .age(memberSpec.getAge())
+                .times(memberSpec.getTimes())
+                .gender(memberSpec.getGender())
+                .goals(memberSpec.getGoals())
+                .level(memberSpec.getLevel())
+                .build();
+
+        model.addAttribute("savedMemberSpec", memberSpecDTO);
         model.addAttribute("updateMemberSpecForm", new UpdateMemberSpecForm());
         return "/members/memberSpec/updateMemberSpecForm";
     }
 
     @Transactional
-    @PutMapping("/member/updateMS")
-    public String updateMemberSpec(@Valid UpdateMemberSpecForm updateMemberSpecForm, BindingResult result){
+    @PostMapping("/member/updateMS")
+    public String updateMemberSpec(@Valid UpdateMemberSpecForm updateMemberSpecForm, BindingResult result
+            ,@RequestParam("height") int height, @RequestParam("weight") int weight, @RequestParam("waist") int waist
+            ,@RequestParam("hip") int hip, @RequestParam("age") int age, @RequestParam("career") int career
+            ,@RequestParam("times") int times, @RequestParam("gender") String gender, @RequestParam("goals") String goals
+                ){
         if (result.hasErrors()) {
             return "/members/memberSpec/updateMemberSpecForm";
         }
@@ -179,9 +199,9 @@ public class MemberSpecController {
                 updateGoals = Goals.ENDURE;
             }
         }
-        memberSpecService.updateBasicMemberSpec(memberId,updateMemberSpecForm.getHeight(),
-                updateMemberSpecForm.getWeight(),updateMemberSpecForm.getWaist(),updateMemberSpecForm.getHip(),
-                updateMemberSpecForm.getCareer() * 100,updateMemberSpecForm.getAge(),updateMemberSpecForm.getTimes(),
+
+        memberSpecService.updateBasicMemberSpec(memberSpec,height,
+                weight,waist,hip, career * 100, age,times,
                 updateGender,updateGoals);
 
         MemberSpecHistory history = new MemberSpecHistory(updateMemberSpecForm.getWeight(), updateMemberSpecForm.getCareer() * 100);
@@ -191,21 +211,42 @@ public class MemberSpecController {
 
         memberSpec.makeLevel();
         Level level = memberSpec.getLevel();
-        return "redirect:/members/mySpec";
+        System.out.println("level = " + level);
+        return "redirect:/members/memberSpec/myPage";
     }
 
     @GetMapping("/member/reEnterMS")
     public String reEnterMemberSpecForm(Model model){
+        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
+        MemberSpecDTO memberSpecDTO =  MemberSpecDTO.builder()
+                .height(memberSpec.getHeight())
+                .weight(memberSpec.getWeight())
+                .waist(memberSpec.getWaist())
+                .hip(memberSpec.getHip())
+                .career(memberSpec.getCareer() / 100)
+                .age(memberSpec.getAge())
+                .times(memberSpec.getTimes())
+                .gender(memberSpec.getGender())
+                .goals(memberSpec.getGoals())
+                .level(memberSpec.getLevel())
+                .build();
+
+        model.addAttribute("savedMemberSpec", memberSpecDTO);
         model.addAttribute("reEnterMemberSpecForm", new UpdateMemberSpecForm());
         return "/members/memberSpec/updateMemberSpecForm";
     }
     @Transactional
-    @PutMapping("/member/reEnterMS")
-    public String reEnterMemberSpec(@Valid UpdateMemberSpecForm reEnterMemberSpecForm, BindingResult result){
+    @PostMapping("/member/reEnterMS")
+    public String reEnterMemberSpec(@Valid UpdateMemberSpecForm reEnterMemberSpecForm, BindingResult result
+            ,@RequestParam("height") int height, @RequestParam("weight") int weight, @RequestParam("waist") int waist
+            ,@RequestParam("hip") int hip, @RequestParam("age") int age, @RequestParam("career") int career
+            ,@RequestParam("times") int times, @RequestParam("gender") String gender, @RequestParam("goals") String goals){
+
         if (result.hasErrors()) {
             return "/members/memberSpec/updateMemberSpecForm";
         }
         Long memberId = loadLoginMember();
+        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
 
         Gender updateGender = null;
         Goals updateGoals = null;
@@ -228,9 +269,9 @@ public class MemberSpecController {
                 updateGoals = Goals.ENDURE;
             }
         }
-        memberSpecService.updateBasicMemberSpec(memberId,reEnterMemberSpecForm.getHeight(),
-                reEnterMemberSpecForm.getWeight(),reEnterMemberSpecForm.getWaist(),reEnterMemberSpecForm.getHip(),
-                reEnterMemberSpecForm.getCareer() * 100,reEnterMemberSpecForm.getAge(),reEnterMemberSpecForm.getTimes(),
+
+        memberSpecService.updateBasicMemberSpec(memberSpec,height,
+                weight,waist,hip, career * 100, age,times,
                 updateGender,updateGoals);
 
         MemberSpecHistory firstRecord = historyService.findFirstRecord_V2(memberId);
@@ -238,7 +279,6 @@ public class MemberSpecController {
                 reEnterMemberSpecForm.getCareer() * 100, reEnterMemberSpecForm.getWeight());
         Long historyId = firstRecord.getId();
 
-        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(memberId);
         memberSpec.makeLevel();
         Level level = memberSpec.getLevel();
         return "redirect:/analyzeComplete";

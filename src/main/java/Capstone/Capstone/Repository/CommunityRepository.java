@@ -15,10 +15,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommunityRepository extends JpaRepository<Community, Long> {
 
-    @Query("select c from Community c where c.title in :title")
+    @Query("select c from Community c where c.title like concat('%', :title, '%') ")
     Page<Community> findByTitle(String title, Pageable pageable);
+    @Query("select c from Community c order by c.createDateWithTime DESC ")
     Page<Community> findAll(Pageable pageable);
-    @Query("select c from Community c order by c.createDate asc")
+    @Query("select c from Community c order by c.createDateWithTime asc")
     Page<Community> findFirst5By(Pageable pageable);
     Community findByIdAndTitle(Long id, String title);
     void deleteByIdAndTitle(Long id, String title);

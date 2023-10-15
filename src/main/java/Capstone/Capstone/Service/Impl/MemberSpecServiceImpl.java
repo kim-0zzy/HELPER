@@ -41,8 +41,7 @@ public class MemberSpecServiceImpl implements MemberSpecService {
     }
 
     @Override
-    public void updateBasicMemberSpec(Long id, int height, int weight, int waist, int hip, int career, int age, int times, Gender gender, Goals goals) {
-        MemberSpec memberSpec = memberSpecRepository.findByMemberId(id);
+    public void updateBasicMemberSpec(MemberSpec memberSpec, int height, int weight, int waist, int hip, int career, int age, int times, Gender gender, Goals goals) {
         memberSpec.setBasic(height, weight, waist, hip, career, age);
         memberSpec.setTimes(times);
         memberSpec.setGender(gender);

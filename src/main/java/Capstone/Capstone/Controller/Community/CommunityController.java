@@ -10,13 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +30,7 @@ public class CommunityController {
         // 커뮤니티 페이지 클릭 시 페이지 번호 0 전달
         Page<Community> page = communityService.findAllNotice(pageNum - 1);
         List<Community> content = page.getContent();
+
         List<CommunityDTO> allNotice = new ArrayList<>();
         for (Community community : content) {
             CommunityDTO communityDTO = CommunityDTO.builder()
@@ -43,34 +42,46 @@ public class CommunityController {
                     .build();
             allNotice.add(communityDTO);
         }
+        long totalContent = page.getTotalElements();
+        int nowPage = page.getPageable().getPageNumber() + 1;
+        int startPage = 1;
+        int endPage = page.getTotalPages();
 
+        model.addAttribute("pageNum", (long)pageNum);
         model.addAttribute("allNotice", allNotice);
+        model.addAttribute("totalContent", totalContent);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage",endPage);
 
-        return "/community/community_home";
+//        return "/community/community_home";
+        return "/community/community";
     }
 
-    @GetMapping("/community/searchOnTitle={title}/page={pageNum}")
-    public String searchOnTitle(Model model,
-                                @PathVariable("pageNum") int pageNum,
-                                @PathVariable("title") String title){
-        Page<Community> page = communityService.findByTitle(title, pageNum);
-        List<Community> content = page.getContent();
-        List<CommunityDTO> searchOnTitleList = new ArrayList<>();
-
-        for (Community community : content) {
-            CommunityDTO communityDTO = CommunityDTO.builder()
-                    .id(community.getId())
-                    .ot_Username(community.getOt_Username())
-                    .title(community.getTitle())
-                    .content(community.getContent())
-                    .createDate(community.getCreateDate())
-                    .build();
-            searchOnTitleList.add(communityDTO);
-        }
-        model.addAttribute("searchOnTitleList", searchOnTitleList);
-
-        return "/community/searchOnTitle";
-    }
+//    @GetMapping("/community/pageNum/searchOnTitle")
+//    public String searchOnTitle(Model model,
+//                                @RequestParam("pageNum") int pageNum,
+//                                @RequestParam("title") String title){
+//        Page<Community> page = communityService.findByTitle(title, pageNum);
+//        List<Community> content = page.getContent();
+//        long totalContent = page.getTotalElements();
+//
+//        List<CommunityDTO> searchOnTitleList = new ArrayList<>();
+//
+//        for (Community community : content) {
+//            CommunityDTO communityDTO = CommunityDTO.builder()
+//                    .id(community.getId())
+//                    .ot_Username(community.getOt_Username())
+//                    .title(community.getTitle())
+//                    .content(community.getContent())
+//                    .createDate(community.getCreateDate())
+//                    .build();
+//            searchOnTitleList.add(communityDTO);
+//        }
+//        model.addAttribute("pageNum", (long)pageNum);
+//        model.addAttribute("searchOnTitleList", searchOnTitleList);
+//        model.addAttribute("totalContent", totalContent);
+//        return "/community/searchOnTitle";
+//    }
 
     @GetMapping("/community/createNotice")
     public String getCreateNoticePage(Model model){
@@ -87,7 +98,7 @@ public class CommunityController {
         String ot_password = communityForm.getOt_Password();
         String title = communityForm.getTitle();
         String content = communityForm.getContent();
-        Community community = new Community(ot_username,ot_password,title,content, LocalDateTime.now());
+        Community community = new Community(ot_username,ot_password,title,content, LocalDate.now(), LocalDateTime.now());
         communityService.saveNotice(community);
         return "redirect:/community";
     }

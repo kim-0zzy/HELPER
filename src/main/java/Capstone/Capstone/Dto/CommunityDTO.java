@@ -15,13 +15,15 @@ public class CommunityDTO {
     private String ot_Username;
     private String title;
     private String content;
-    private LocalDateTime createDate;
+    private LocalDate createDate;
+    private LocalDateTime createDateWithTime;
 
-    public CommunityDTO(Long id, String ot_Username, String title, String content, LocalDateTime createDate) {
+    public CommunityDTO(Long id, String ot_Username, String title, String content, LocalDate createDate, LocalDateTime createDateWithTime) {
         this.id = id;
         this.ot_Username = ot_Username;
         this.title = title;
         this.content = content;
         this.createDate = createDate;
+        this.createDateWithTime = createDateWithTime;
     }
 }

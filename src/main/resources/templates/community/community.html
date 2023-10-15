@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Notices</title>
+</head>
+<body>
+<h1>Community Notices</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>No.</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Date</th>
+  </tr>
+  </thead>
+
+  <tbody th:if="${allNotice.size() > 0}">
+  <tr th:each="notice, noticeNum : ${allNotice}">
+    <td th:text="${totalContent + 1} - (((${pageNum} - 1) * 10)) - ${noticeNum.count}"></td>
+    <td th:text="${notice.title}"></td>
+    <td th:text="${notice.ot_Username}"></td>
+    <td th:text="${notice.createDate}"></td>
+  </tr>
+
+  </tbody>
+
+</table>
+
+<div>
+  startPage <p type="text" th:text="${startPage}"></p>
+  endPage <p type="text" th:text="${endPage}"></p>
+</div>
+<!--  <form th:action="@{/community/pageNum/searchOnTitle}" method="get">-->
+<!--    <input type="text" name="title" placeholder="검색 단어">-->
+<!--    <button type="submit">검색</button>-->
+<!--  </form>-->
+<!--    <form th:action="@{/community/pageNum/searchOnTitle=${param.title}}" method="get">-->
+<!--      <input type="text" name="title" placeholder="검색 단어">-->
+<!--      <button type="submit">검색</button>&ndash;&gt;-->
+<!--    </form>-->
+
+
+  </body>
+
+  <script type="text/javascript">
+    function goToPage(pageNumber) {
+      // Handle page navigation here
+    }
+  </script>
+
+  </html>
+
+

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Notices</title>
+</head>
+<body>
+<h1>Community Notices</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>No.</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Date</th>
+  </tr>
+  </thead>
+
+  <tbody th:if="${searchOnTitleList.size() > 0}">
+  <tr th:each="notice, noticeNum : ${searchOnTitleList}">
+    <td th:text="${totalContent + 1} - (((${pageNum} - 1) * 10)) - ${noticeNum.count}"></td>
+    <td th:text="${notice.title}"></td>
+    <td th:text="${notice.ot_Username}"></td>
+    <td th:text="${notice.createDate}"></td>
+  </tr>
+  </tbody>
+
+</table>
+<form th:action="@{/community/pageNum/searchOnTitle}" method="get">
+  <input type="text" name="title" placeholder="검색 단어">
+  <button type="submit">검색</button>
+</form>
+
+
+</body>
+
+<script type="text/javascript">
+  function goToPage(pageNumber) {
+    // Handle page navigation here
+  }
+</script>
+
+</html>
+
+

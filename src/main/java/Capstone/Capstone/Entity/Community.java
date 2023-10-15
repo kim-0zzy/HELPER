@@ -23,13 +23,15 @@ public class Community {
     private String ot_Password;
     private String title;
     private String content;
-    private LocalDateTime createDate;
+    private LocalDate createDate;
+    private LocalDateTime createDateWithTime;
 
-    public Community(String ot_Username, String ot_Password, String title, String content, LocalDateTime createDate) {
+    public Community(String ot_Username, String ot_Password, String title, String content, LocalDate createDate, LocalDateTime createDateWithTime) {
         this.ot_Username = ot_Username;
         this.ot_Password = ot_Password;
         this.title = title;
         this.content = content;
         this.createDate = createDate;
+        this.createDateWithTime = createDateWithTime;
     }
 }
