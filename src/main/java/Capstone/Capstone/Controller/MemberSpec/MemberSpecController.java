@@ -305,6 +305,11 @@ public class MemberSpecController {
 
         MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
 
+        Goals goals = memberSpec.getGoals();
+        double BMR = memberSpec.getRoutine().getBMR(memberSpec);
+
+        model.addAttribute("BMR", BMR);
+        model.addAttribute("goal", goals);
         model.addAttribute("nutrition",new NutritionDTO(memberSpec.getRoutine().getNutrition()));
         return "/members/memberSpec/myNutrition";
     }

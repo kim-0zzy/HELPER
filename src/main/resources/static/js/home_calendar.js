@@ -67,7 +67,7 @@ function createCalendar() {
 window.onload=createCalendar;
 
 function divBtn() {
-  location.href="calender.html"
+  location.href="/templates/members/calendar.html"
 }
 
 function divBtn1() {

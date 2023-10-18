@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Community</title>
+</head>
+<body>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>작성자</th>
+    <th>제목</th>
+    <th>내용</th>
+    <th>작성일</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <!-- content 객체 -->
+  <!-- ID -->
+  <td th:text="${content.id}"></td>
+
+  <!-- 작성자 -->
+  <td th:text="${content.ot_Username}"></td>
+
+  <!-- 제목 -->
+  <td th:text="${content.title}"></td>
+
+  <!-- 내용 -->
+  <td th:utext="${content.content}"></td>
+
+  <!-- 작성일 (createDate) -->
+  <td th:text="${content.createDate}"></td>
+  </tbody>
+</table>
+</body>
+</html>

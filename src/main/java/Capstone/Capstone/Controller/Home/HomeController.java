@@ -37,7 +37,11 @@ public class HomeController {
 
     @GetMapping("/")
     public String lobby(){
-        return "/lobbyPage";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication.getPrincipal() == "anonymousUser"){
+            return "/lobbyPage";
+        }
+        return "/members/mainPage";
     }
 
     @GetMapping("/mainPage")

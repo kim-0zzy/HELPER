@@ -27,9 +27,19 @@ public class MemberController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private Long loadLoginMember(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = (Member)authentication.getPrincipal();
+        return member.getId();
+    }
+
     @GetMapping("/signup")
     public String createForm(Model model){
-        return "/members/signupUser";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication.getPrincipal() == "anonymousUser"){
+            return "/members/signupUser";
+        }
+        return "redirect:/";
     }
 
     @PostMapping("/signup")
@@ -46,7 +56,11 @@ public class MemberController {
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
 
-        return "/members/login";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication.getPrincipal() == "anonymousUser"){
+            return "/members/login";
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/logout")

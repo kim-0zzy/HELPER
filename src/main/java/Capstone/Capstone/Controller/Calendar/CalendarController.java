@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.transaction.Transactional;
@@ -35,6 +36,8 @@ public class CalendarController {
     public String getCalendar(Model model){
         MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
         List<CalendarDTO> calendarDTOList = calendarService.findMonthlyRecord(memberSpec.getId(), LocalDate.now().getYear(),LocalDate.now().getMonthValue());
+        int totalAmount = calendarDTOList.size();
+
         model.addAttribute("calendarList", calendarDTOList);
         return "/members/calendar";
     }
@@ -52,12 +55,28 @@ public class CalendarController {
             model.addAttribute("message", FailMessage);
             // 경고창 출력
         }
-
     }
+
     @Transactional
-    @DeleteMapping("/member/calendar/deleteProgress")
-    public void deleteProgress(int year, int month, int day){
+    @PostMapping("/member/calendar/saveProgress/day={day}")
+    public void saveProgressWithDay(Model model, @PathVariable("day") int day) {
         MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
-        calendarService.deleteCalendarData(memberSpec.getId(),year, month, day);
+        Calendar calendar = calendarService.findDateRecord(memberSpec.getId(), LocalDate.now().getYear(), LocalDate.now().getMonth().getValue(), day);
+        if (calendar == null) {
+            calendarService.saveProgress(new Calendar(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue(), day));
+            String SuccessMessage = "체크되었습니다.";
+            model.addAttribute("message", SuccessMessage);
+        }else {
+            String FailMessage = "이미 존재하는 데이터입니다. 삭제하시겠습니까?";
+            model.addAttribute("message", FailMessage);
+            // 경고창 출력
+        }
+    }
+
+    @Transactional
+    @DeleteMapping("/member/calendar/deleteProgress/day={day}")
+    public void deleteProgress(@PathVariable("day") int day){
+        MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
+        calendarService.deleteCalendarData(memberSpec.getId(),LocalDate.now().getYear(), LocalDate.now().getMonth().getValue(), day);
     }
 }

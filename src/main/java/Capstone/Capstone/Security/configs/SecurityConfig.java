@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         // 보안필터 바깥에서 적용됨. 보안 필터에 진입조차 안함
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+        web.ignoring().antMatchers("/static/js/**","/static/css/**");
     }
 
     @Bean

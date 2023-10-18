@@ -33,7 +33,7 @@ public class HistoryRepository {
                             "order by msh.make_Year DESC, msh.make_Month DESC , msh.make_Day desc "
                             , MemberSpecHistory.class)
                     .setParameter("id", id)
-                    .getSingleResult();
+                    .getResultList().get(0);
         }catch (NoResultException e){
             return null;
         }

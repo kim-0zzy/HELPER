@@ -57,8 +57,11 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public CommunityDTO findByIdWithTitle(Long id, String title) {
-        Community community = communityRepository.findByIdAndTitle(id, title);
+    public CommunityDTO findById(Long id) {
+        Community community = null;
+        if(communityRepository.findById(id).isPresent()){
+            community = communityRepository.findById(id).get();
+        }
         CommunityDTO communityDto = CommunityDTO.builder()
                 .id(community.getId())
                 .ot_Username(community.getOt_Username())

@@ -83,6 +83,7 @@ public class CommunityController {
 //        return "/community/searchOnTitle";
 //    }
 
+
     @GetMapping("/community/createNotice")
     public String getCreateNoticePage(Model model){
         model.addAttribute("CommunityForm", new CommunityForm());
@@ -103,13 +104,12 @@ public class CommunityController {
         return "redirect:/community";
     }
 
-    @GetMapping("/community/{title}/{id}") // 페이지에서 타임리프 리스트로 객체 뿌려준 후 클릭 시 id, title 반환해 api 동작하는 방식.
-    public String getNotice(@PathVariable("title") String title,
-                            @PathVariable("id") Long id,
+    @GetMapping("/community/detail")
+    public String getNotice(@RequestParam("id") Long id,
                             Model model){
-        CommunityDTO communityDTO = communityService.findByIdWithTitle(id, title);
+        CommunityDTO communityDTO = communityService.findById(id);
         model.addAttribute("content", communityDTO);
-        return null;
+        return "/community/community_detail";
     }
 
     @GetMapping("/community/askAgain")

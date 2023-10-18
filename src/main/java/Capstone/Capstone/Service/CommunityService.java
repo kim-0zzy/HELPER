@@ -13,7 +13,7 @@ public interface CommunityService {
     public Page<Community> findByTitle(String title, int pageNum);
     public Page<Community> findAllNotice(int pageNum);
     public List<CommunityDTO> findRecently5();
-    public CommunityDTO findByIdWithTitle(Long Id, String title);
+    public CommunityDTO findById(Long Id);
     public void saveNotice(Community community);
     public void deleteNotice(Long Id, String title) throws NoResultException;
 

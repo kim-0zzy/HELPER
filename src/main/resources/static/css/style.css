@@ -1,8 +1,8 @@
 @font-face { 
     font-family: 'BMJUA';
-    src:url("/static/fonts/BMJUA_otf.otf")
+    src:url("../fonts/BMJUA.woff") format('woff');
+    src:local("/fonts/BMJUA_otf.woff");
 }
 html {
     font-family: "BMJUA";
 }
-
