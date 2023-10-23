@@ -14,6 +14,7 @@ public interface CommunityService {
     public Page<Community> findAllNotice(int pageNum);
     public List<CommunityDTO> findRecently5();
     public CommunityDTO findById(Long Id);
+    public Community findById_v2(Long id);
     public void saveNotice(Community community);
     public void deleteNotice(Long Id, String title) throws NoResultException;
 

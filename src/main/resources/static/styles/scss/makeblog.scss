@@ -1,0 +1,100 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 144rem;
+}.makeblog-ZAY {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  padding: 7rem 14.4rem 27.5rem 14.3rem;
+  width: 100%;
+  overflow: hidden;
+
+  .title-KZ2 {
+    padding: 0.6rem 0rem 0.5rem 0rem;
+    width: 115.2rem;
+    line-height: 1.2125;
+    color: #999999;
+    font-family: Inter, 'Source Sans Pro';
+    white-space: nowrap;
+    border: solid 0.1rem #999999;
+    margin: 0rem 0rem 2.2rem 0.1rem;
+    box-sizing: border-box;
+    font-size: 4rem;
+    font-weight: 600;
+    background-color: #ffffff;
+    flex-shrink: 0;
+  }
+  .auto-group-ky1n-mxk {
+    margin-bottom: 3.8rem;
+    height: 2.7rem;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+
+    .user-name-tGg {
+      font-size: 1.6rem;
+      white-space: nowrap;
+      background-color: #ffffff;
+      flex-shrink: 0;
+      font-weight: 400;
+      justify-content: center;
+      box-sizing: border-box;
+      height: 100%;
+      color: #999999;
+      font-family: Inter, 'Source Sans Pro';
+      display: flex;
+      border: solid 0.1rem #999999;
+      margin-right: 3rem;
+      width: 6.9rem;
+      line-height: 1.2125;
+      align-items: center;
+    }
+    .date-L8g {
+      flex-shrink: 0;
+      margin: 0.1rem 4.933rem 0rem 0rem;
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.2125;
+      color: #999999;
+      font-family: Inter, 'Source Sans Pro';
+      white-space: nowrap;
+    }
+    .delete-bnt-e9N {
+      object-fit: contain;
+      vertical-align: top;
+      flex-shrink: 0;
+      margin-bottom: 0.1rem;
+      width: 2.1333rem;
+      height: 2.4rem;
+    }
+  }
+  .main-text-Z1S {
+    height: 53.2rem;
+    color: #999999;
+    white-space: nowrap;
+    background-color: #ffffff;
+    flex-shrink: 0;
+    margin-left: 0.1rem;
+    width: 115.2rem;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.2125;
+    font-family: Inter, 'Source Sans Pro';
+    box-shadow: 0 0.4rem 0.4rem rgba(153, 153, 153, 0.150000006);
+  }
+}

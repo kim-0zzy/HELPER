@@ -2,10 +2,7 @@ package Capstone.Capstone.Controller.MemberSpec;
 
 import Capstone.Capstone.Controller.MemberSpec.Form.CreateMemberSpecForm;
 import Capstone.Capstone.Controller.MemberSpec.Form.UpdateMemberSpecForm;
-import Capstone.Capstone.Dto.MemberSpecDTO;
-import Capstone.Capstone.Dto.MemberSpecHistoryDTO;
-import Capstone.Capstone.Dto.NutritionDTO;
-import Capstone.Capstone.Dto.PartitionDTO;
+import Capstone.Capstone.Dto.*;
 import Capstone.Capstone.Entity.E_type.Gender;
 import Capstone.Capstone.Entity.E_type.Goals;
 import Capstone.Capstone.Entity.E_type.Level;
@@ -47,7 +44,6 @@ public class MemberSpecController {
     @GetMapping("/member/myPage")
     public String mySpec(Model model){
         MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
-
         MemberSpecDTO memberSpecDTO =  MemberSpecDTO.builder()
                 .height(memberSpec.getHeight())
                 .weight(memberSpec.getWeight())
@@ -61,23 +57,29 @@ public class MemberSpecController {
                 .level(memberSpec.getLevel())
                 .build();
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = (Member)authentication.getPrincipal();
+        MemberDTO memberDTO = MemberDTO.builder()
+                .realName(member.getRealName())
+                .username(member.getUsername())
+                .build();
+
         MemberSpecHistoryDTO memberSpecHistoryDTO = historyService.findFirstRecord(memberSpec.getId());
 
-        int beforeCareer = memberSpecDTO.getCareer() - memberSpecHistoryDTO.getHis_career();
-        int beforeWeight = memberSpecDTO.getWeight() - memberSpecHistoryDTO.getHis_weight();
         double muscleNervous = 0;
-        // 근신경계
-
+        // 근신경계 활성도
         if(memberSpecDTO.getCareer() > 30) {
             muscleNervous = 100;
         }else{
             muscleNervous = memberSpecDTO.getCareer() * 3.3;
         }
-
-        // 근육량
+        // 근육증가량
         double muscleMass = (memberSpecDTO.getCareer() - memberSpecHistoryDTO.getHis_career()) * 0.3 ;
+        // 함께한 시간
+        int togetherCareer = memberSpecDTO.getCareer() - memberSpecHistoryDTO.getHis_career();
 
-
+        model.addAttribute("nickName", memberDTO.getRealName());
+        model.addAttribute("togetherCareer", togetherCareer);
         model.addAttribute("memberSpec",memberSpecDTO);
         model.addAttribute("muscleNervous", muscleNervous);
         model.addAttribute("muscleMass", muscleMass);
@@ -180,7 +182,7 @@ public class MemberSpecController {
 
         Gender updateGender = null;
         Goals updateGoals = null;
-        switch (updateMemberSpecForm.getGender()) {
+        switch (gender) {
             case "MALE" -> {
                 updateGender = Gender.MALE;
             }
@@ -188,7 +190,7 @@ public class MemberSpecController {
                 updateGender = Gender.FEMALE;
             }
         }
-        switch (updateMemberSpecForm.getGoals()) {
+        switch (goals) {
             case "DIET" -> {
                 updateGoals = Goals.DIET;
             }case "BULKUP" ->{
@@ -204,7 +206,7 @@ public class MemberSpecController {
                 weight,waist,hip, career * 100, age,times,
                 updateGender,updateGoals);
 
-        MemberSpecHistory history = new MemberSpecHistory(updateMemberSpecForm.getWeight(), updateMemberSpecForm.getCareer() * 100);
+        MemberSpecHistory history = new MemberSpecHistory(weight, career * 100);
         history.setMemberSpec(memberSpec);
         historyService.saveHistory(history);
 
@@ -304,12 +306,33 @@ public class MemberSpecController {
     public String getMyNutrition(Model model){
 
         MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
+        MemberSpecDTO memberSpecDTO =  MemberSpecDTO.builder()
+                .height(memberSpec.getHeight())
+                .weight(memberSpec.getWeight())
+                .waist(memberSpec.getWaist())
+                .hip(memberSpec.getHip())
+                .career(memberSpec.getCareer() / 100)
+                .age(memberSpec.getAge())
+                .times(memberSpec.getTimes())
+                .gender(memberSpec.getGender())
+                .goals(memberSpec.getGoals())
+                .level(memberSpec.getLevel())
+                .build();
 
-        Goals goals = memberSpec.getGoals();
         double BMR = memberSpec.getRoutine().getBMR(memberSpec);
 
+        String calculation_Kcal = "";
+        switch (memberSpecDTO.getGoals()){
+            case DIET -> calculation_Kcal = "-500";
+            case BULKUP,STRENGTH -> calculation_Kcal = "+200";
+            case ENDURE -> calculation_Kcal = "-+0";
+        }
+
+        model.addAttribute("memberSpecDTO", memberSpecDTO);
+        model.addAttribute("WHR", (double) memberSpecDTO.getWaist() / (double) memberSpecDTO.getHip());
         model.addAttribute("BMR", BMR);
-        model.addAttribute("goal", goals);
+        model.addAttribute("goal", memberSpecDTO.getGoals());
+        model.addAttribute("calculation_Kcal", calculation_Kcal);
         model.addAttribute("nutrition",new NutritionDTO(memberSpec.getRoutine().getNutrition()));
         return "/members/memberSpec/myNutrition";
     }

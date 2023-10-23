@@ -1,81 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>my page</title>
+    <title>헬판</title>
     <meta charset="utf-8">
-    <link href="/css/style.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
     <style>
-        h3 {font-size: 30px;}
-        h3 {text-align: left;}
-        body {text-align: center;
-        }
-        h1{ font-size: 18px; padding: 20px;}
-        
-        .menu li a {
-            height: 30px;
-            line-height: 30px;
-            display: block;
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #aba9a9;
             padding: 10px;
-            font-size: 12px;
-            color: #555;
+            font-size: 25px;
         }
-        .menu li a:hover { background-color: yellowgreen; color: white;}
-        div {
-            width: 88%; 
-            height: 500px;
+        .menu a:hover { background-color: yellowgreen; color: white;}
+
+        .logo {
+            font-weight: bold;
+            margin-right: auto;
+            color: #585858;
+        }
+
+        .menu {
+            display: flex;
+        }
+
+        .menu a {
+            margin-right: 10px;
+        }
+
+
+
+        h1{ font-size: 30px;}
+
+        div.board {
+            width: 100%;
+            height: 506px;
             float: right;
-        
-            border: 1px solid #000;
+
+            border: 1px solid #00000000;
             font-size: 20px;
         }
-        div.left {
-            width: 50%;
-            float: left;
-            box-sizing: border-box;
+        .d-none{
+            display: none;
         }
-        div.right {
-            width:50%;
-            float: right;
-            box-sizing: border-box;
+
+        .table{
+            font-size :23px;
+            text-align: center;
+            width: 100%;
+            height: 600px;
+            margin-top: -40px;
+            border: 3px solid rgb(128, 128, 128);
+            background-color: #f4fafd;
+            border-collapse: separate;
+            border-spacing: 0px 10px;
         }
-        nav {
-            position: absolute;
-            top: 92px;
-            width: 140px;
-            background-color: #b0e0e6;
-            border-right: 1px solid #ddd;
-            height: 500px
+        tr{
+            border: 1px solid #807b7b64;
         }
-    
     </style>
 </head>
+<body bgcolor="#696969">
+<div class="navbar">
+    <div class="logo">
+        HEalthy Long PERsist
+    </div>
 
-<body bgcolor="#98c3e5">
-    <header>
-        <h3> HELPER 나의 페이지 </h3>
-    </header>
-    <nav>
-        <h1>MENU</h1>
-        <!--왼쪽 사이드 메뉴바-->
-        <ul class="menu">
-            <li><a onclick="window.location.href='/mainPage'" target="_self" style="font-size: 17px;" >메인 홈</a></li>
-            <li><a onclick="window.location.href='/member/myRoutine'" target="_self" style="font-size: 17px;" >나의 루틴</a></li>
-            <li><a onclick="window.location.href='/member/myHistory'" target="_self" style="font-size: 17px;">나의 기록</a></li>
-            <li><a onclick="window.location.href='/member/myNutrition'" target="_self" style="font-size: 17px;">나의 식단</a></li>
-            <li><a onclick="window.location.href='/Community'" target="_self" style="font-size: 17px;">헬판</a></li>
-            <li><a onclick="window.location.href='/member/myCalendar'" target="_self" style="font-size: 17px;">캘린더</a></li>
-            <li><a onclick="window.location.href='/member/myPage'" target="_self" style="font-size: 17px;">나의 정보</a></li>
-        </ul>
-        <!--왼쪽 사이드 메뉴바-->
-    </nav>
-    <div>
-        <div class="left" style="background-color: #ddd;;"> <br> </div>
-        <div class="right" style="background-color: #ddd;;"> <br> </div>
+    <div class="menu">
+        <a class="nav-link text-light" onclick="window.location.href='/logout'">로그아웃</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/mainPage'">메인홈</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myPage'">나의 정보</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myHistory'">나의 기록</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myRoutine'">나의 루틴</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myNutrition'">나의 식단</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myCalendar'">나의 달력</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/community/page=1'">헬판</a>
     </div>
-    <div>
-        <p th:text="${muscleNervous}"> 근 신경계 활성도 </p>
-        <p th:text="${muscleMass}"> 근육 증가량 </p>
-<!--        <p th:text="${memberSpec.}"> MemberSpec </p>-->
+</div>
+<br><br><br><br>
+<section class="main">
+    <h1 class="d-none">게시판</h1>
+    <div class="board">
+        <table class="table">
+            <tr>
+                <td colspan="3" height="40px">
+                    <b font-size="5" th:text="${nickName}"></b>님은 저희와 함께 &nbsp;&nbsp;<b font-size="5" th:text="${togetherCareer}"></b>&nbsp;&nbsp;일차 운동중 입니다.
+                </td>
+            </tr>
+
+            <tr height="20px" bgcolor="#5F9EA0">
+                <td width="33%">레벨</td>
+                <td width="33%">체중</td>
+                <td width="33%">목표</td>
+            </tr>
+            <tr height="120px">
+                <td>
+                    <p th:text="${memberSpec.getLevel()}"> 레벨 </p>
+                    <hr width="70%">
+                    <font size=3>.Level</font>
+                </td>
+                <td>
+                    <p th:text="${memberSpec.getWeight()}"> 체중 </p>
+                    <hr width="70%">
+                    <font size=3>kg</font>
+                </td>
+                <td>
+                    <p th:text="${memberSpec.getGoals()}"> 목표 </p>
+                    <hr width="70%">
+                    <font size=3>&nbsp;</font>
+                </td>
+            </tr>
+            <tr height="20px" bgcolor="#5F9EA0">
+                <td>근신경계활성도</td>
+                <td>근신경계활성도</td>
+                <td>근육증가량</td>
+            </tr>
+            <tr>
+                <td>현진이 작업</td>
+                <td>현진이 작업</td>
+                <td>현진이 작업</td>
+            </tr>
+        </table>
     </div>
+</section>
 </body>
 </html>
+
+
+
+
+
+
+
+
+

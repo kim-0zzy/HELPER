@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>createCommunity</title>
+  <meta charset="utf-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <title>makeblog</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter%3A400%2C600"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C600"/>
+  <link rel="stylesheet" href="/styles/makeblog.css"/>
 </head>
 <body>
-<form method="post" th:object="${CommunityForm}">
-  title: <input type="text"th:field="*{title}"min="1" max="20"><br>
-  content: <input type="text" th:field="*{content}" min="1" max="180"><br>
-  ot_username: <input type="text" th:field="*{ot_Username} "min="2" max="8"><br>
-  ot_password: <input type="text" th:field="*{ot_Password}" min="4" max="12"><br>
+<div class="makeblog-ZAY">
+  <form method="post" th:object="${CommunityForm}">
+  <input type="text" th:field="*{title}" placeholder="제목을 입력해 주세요" class="title-KZ2">
+  <div class="auto-group-ky1n-mxk">
+    <input type="text" th:field="*{ot_Username}" placeholder="작성자" class="user-name-tGg">
+    <input type="password" th:field="*{ot_Password}" placeholder="비밀번호" class="user-name-tGg">
+<!--    <img class="delete-bnt-e9N" src="/assets/delete-orenge-bnt.png"/>-->
+  </div>
+  <textarea id="textAreaValue" th:field="*{content}" placeholder="내용을 입력하세요" class="main-text-Z1S"></textarea>
   <input type="submit" value="저장하기">
-</form>
+  </form>
+</div>
 </body>
-</html>

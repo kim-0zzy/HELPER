@@ -71,6 +71,13 @@ public class CommunityServiceImpl implements CommunityService {
                 .build();
         return communityDto;
     }
+    public Community findById_v2(Long id) {
+        Community community = null;
+        if(communityRepository.findById(id).isPresent()){
+            community = communityRepository.findById(id).get();
+        }
+        return community;
+    }
 
     @Override
     public void saveNotice(Community community) throws NoResultException {

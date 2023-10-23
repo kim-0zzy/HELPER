@@ -38,10 +38,12 @@ public class CalendarController {
         List<CalendarDTO> calendarDTOList = calendarService.findMonthlyRecord(memberSpec.getId(), LocalDate.now().getYear(),LocalDate.now().getMonthValue());
         int totalAmount = calendarDTOList.size();
 
+        model.addAttribute("totalAmount",totalAmount);
         model.addAttribute("calendarList", calendarDTOList);
         return "/members/calendar";
     }
 
+    @Transactional
     @PostMapping("/member/calendar/saveProgress")
     public void saveProgress(Model model) {
         MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());

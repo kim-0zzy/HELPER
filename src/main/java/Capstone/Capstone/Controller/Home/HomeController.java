@@ -41,7 +41,7 @@ public class HomeController {
         if(authentication.getPrincipal() == "anonymousUser"){
             return "/lobbyPage";
         }
-        return "/members/mainPage";
+        return "redirect:/mainPage";
     }
 
     @GetMapping("/mainPage")

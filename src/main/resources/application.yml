@@ -20,12 +20,15 @@ spring:
       hibernate:
         # show_sql: true -> printf ??? sql ??
         format_sql: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
 #  mvc:
 #    static-path-pattern: /static/**
 #  web:
 #    resources:
 #      static-locations: classpath:/static/
-
 logging.level:
   org.hibernate.SQL: debug
 

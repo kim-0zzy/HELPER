@@ -4,6 +4,7 @@ import Capstone.Capstone.Controller.Community.Form.CommunityForm;
 import Capstone.Capstone.Controller.Community.Form.DeleteCommunityForm;
 import Capstone.Capstone.Dto.CommunityDTO;
 import Capstone.Capstone.Entity.Community;
+import Capstone.Capstone.Exception.PasswordException;
 import Capstone.Capstone.Service.CommunityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,7 +25,6 @@ import java.util.List;
 public class CommunityController {
 
     private final CommunityService communityService;
-
     @GetMapping("/community/page={pageNum}")
     public String getCommunityPage(Model model, @PathVariable("pageNum") int pageNum){
         // 커뮤니티 페이지 클릭 시 페이지 번호 0 전달
@@ -119,13 +119,29 @@ public class CommunityController {
         return "/community/askAgain";
     }
 
+//    @Transactional
+//    @DeleteMapping("/community/deleteNotice")
+//    public String deleteNotice(DeleteCommunityForm deleteCommunityForm){
+//        Long id = deleteCommunityForm.getId(); // ${id}
+//        String ot_Password = deleteCommunityForm.getOt_password();
+//        communityService.deleteNotice(id, ot_Password);
+//        // 삭제되었습니다 (확인) 경고창 출력
+//        return "redirect:/community/page=1";
+//    }
     @Transactional
     @DeleteMapping("/community/deleteNotice")
-    public String deleteNotice(DeleteCommunityForm deleteCommunityForm){
-        Long id = deleteCommunityForm.getId(); // ${id}
-        String ot_Password = deleteCommunityForm.getOt_password();
-        communityService.deleteNotice(id, ot_Password);
+    public String deleteNotice(@RequestParam("id") Long id, @RequestParam("password") String password) throws PasswordException {
+        Community community = communityService.findById_v2(id);
+        if(!password.equals(community.getOt_Password())) {
+            throw new PasswordException("비밀번호가 일치하지 않습니다");
+        }
+        communityService.deleteNotice(community.getId(), community.getTitle());
         // 삭제되었습니다 (확인) 경고창 출력
-        return "redirect:/community";
+        return "redirect:/community/page=1";
+    }
+
+    @GetMapping("/community/test")
+    public String cmTest(){
+        return "createNewNotice";
     }
 }

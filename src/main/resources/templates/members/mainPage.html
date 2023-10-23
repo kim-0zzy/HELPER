@@ -1,73 +1,223 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>home</title>-->
+<!--    <meta charset="utf-8">-->
+<!--    <link href="/css/style.css" rel="stylesheet">-->
+<!--    <style>-->
+<!--        h3 {font-size: 30px;}-->
+<!--        h3 {text-align: left;}-->
+<!--        body {text-align: center;-->
+<!--        }-->
+<!--        h1{ font-size: 18px; padding: 20px;}-->
+<!--        -->
+<!--        .menu li a {-->
+<!--            height: 30px;-->
+<!--            line-height: 30px;-->
+<!--            display: block;-->
+<!--            padding: 10px;-->
+<!--            font-size: 12px;-->
+<!--            color: #555;-->
+<!--        }-->
+<!--        .menu li a:hover { background-color: yellowgreen; color: white;}-->
+<!--        div {-->
+<!--            width: 88%; -->
+<!--            height: 506px;-->
+<!--            float: right;-->
+<!--            font-size: 20px;-->
+<!--            border: 1px solid #00000079;-->
+<!--        }-->
+<!--        div.left {-->
+<!--            width: 50%;-->
+<!--            float: left;-->
+<!--            box-sizing: border-box;-->
+<!--            border: 1px solid #00000000;-->
+<!--        }-->
+<!--        div.right {-->
+<!--            width:50%;-->
+<!--            box-sizing: border-box;-->
+<!--            border: 1px solid #00000079;-->
+<!--        }-->
+<!--        nav {-->
+<!--            position: absolute;-->
+<!--            top: 92px;-->
+<!--            width: 140px;-->
+<!--            background-color: #b0e0e6;-->
+<!--            border-right: 1px solid #ddd;-->
+<!--            height: 506px-->
+<!--        }-->
+<!--        #calendar {-->
+<!--            border: 1px solid #cccccc00;-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--        .calendar-grid {-->
+<!--            display: grid;-->
+<!--            border: 1px solid #cccccc00;-->
+<!--            grid-template-columns: repeat(7, auto);-->
+<!--            width: 100%;-->
+<!--            height: 60px;-->
+<!--        }-->
+<!--        .calendar-cell {-->
+<!--            border: 1px solid #cccccc00;-->
+<!--            width: 100%;-->
+<!--            height: 70px;-->
+<!--        }-->
+<!--        .today {-->
+<!--            background-color: rgba(255, 255, 0, 0.465);-->
+<!--        }-->
+<!--        table {-->
+<!--            width: 100%;-->
+<!--            height: 50%;-->
+<!--            border-collapse: separate;-->
+<!--            border-spacing: 10px 10px;-->
+<!--        }-->
+<!--        tr {-->
+<!--            width: 100%;-->
+<!--            height: 50px;-->
+<!--        }-->
+<!--        caption {-->
+<!--            height: 40px;-->
+<!--            background-color: #98c3e5;-->
+<!--            text-align: center;-->
+<!--        }-->
+
+
+<!--    -->
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body bgcolor="#98c3e5">-->
+<!--    <header>-->
+<!--        <h3> HELPER </h3>-->
+<!--    </header>-->
+<!--    -->
+<!--    <nav>-->
+<!--        <h1>MENU</h1>-->
+<!--        &lt;!&ndash;왼쪽 사이드 메뉴바&ndash;&gt;-->
+<!--        <ul class="menu">-->
+<!--            <li><a onclick="window.location.href='/mainPage'" target="_self" style="font-size: 17px;" >메인 홈</a></li>-->
+<!--            <li><a onclick="window.location.href='/member/myRoutine'" target="_self" style="font-size: 17px;" >나의 루틴</a></li>-->
+<!--            <li><a onclick="window.location.href='/member/myHistory'" target="_self" style="font-size: 17px;">나의 기록</a></li>-->
+<!--            <li><a onclick="window.location.href='/member/myNutrition'" target="_self" style="font-size: 17px;">나의 식단</a></li>-->
+<!--            <li><a onclick="window.location.href='/community/page=1'" target="_self" style="font-size: 17px;">헬판</a></li>-->
+<!--            <li><a onclick="window.location.href='/member/myCalendar'" target="_self" style="font-size: 17px;">캘린더</a></li>-->
+<!--            <li><a onclick="window.location.href='/member/myPage'" target="_self" style="font-size: 17px;">나의 정보</a></li>-->
+<!--        </ul>-->
+<!--        &lt;!&ndash;왼쪽 사이드 메뉴바&ndash;&gt;-->
+<!--    </nav>-->
+<!-- -->
+<!--    <div>-->
+<!--        <div class="left" style="background-color: #ffffff;;"onclick='divBtn1();'><br>헬판<br>-->
+<!--            <h1>헬판</h1>-->
+<!--            <table class="board_list">-->
+<!--                <caption>게시판 목록</caption>-->
+
+<!--                <thead>-->
+<!--                    <tr><br><br>-->
+<!--                        <th>번호</th>-->
+<!--                        <th>제목</th>-->
+<!--                        <th>글쓴이</th>-->
+<!--                        <th>작성일</th>-->
+<!--                    </tr>-->
+<!--                </thead>-->
+<!--                <tbody th:if="${recently5Notice.size() > 0}">-->
+<!--                <tr th:each="notice, noticeNum : ${recently5Notice}">-->
+<!--                    <td th:text="6 - ${noticeNum.count}"></td>-->
+<!--                    <td>-->
+<!--                        <a th:text="${notice.title}" th:href="@{/community/detail(id=${notice.id})}"></a>-->
+<!--                    </td>-->
+<!--                    <td th:text="${notice.ot_Username}"></td>-->
+<!--                    <td th:text="${notice.createDate}"></td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        -->
+<!--        </div>-->
+
+<!--        <div class="right" id="calendar" style="background-color: #f6e1e1;;" onclick='divBtn();'>-->
+<!--            <script async src="/js/home_calendar.js"></script>-->
+<!--            -->
+<!--        </div>-->
+<!--    </div> -->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>home</title>
+    <title>Navbar</title>
     <meta charset="utf-8">
     <link href="/css/style.css" rel="stylesheet">
     <style>
-        h3 {font-size: 30px;}
-        h3 {text-align: left;}
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #aba9a9;
+            padding: 10px;
+            font-size: 25px;
+        }
+        .menu a:hover { background-color: yellowgreen; color: white;}
+
+        .logo {
+            font-weight: bold;
+            margin-right: auto;
+            color: #585858;
+        }
+
+        .menu {
+            display: flex;
+        }
+
+        .menu a {
+            margin-right: 10px;
+        }
+
         body {text-align: center;
         }
-        h1{ font-size: 18px; padding: 20px;}
-        
-        .menu li a {
-            height: 30px;
-            line-height: 30px;
-            display: block;
-            padding: 10px;
-            font-size: 12px;
-            color: #555;
-        }
-        .menu li a:hover { background-color: yellowgreen; color: white;}
-        div {
-            width: 88%; 
-            height: 506px;
-            float: right;
-            font-size: 20px;
-            border: 1px solid #00000079;
-        }
+
+        h1{ font-size: 30px;}
+
         div.left {
             width: 50%;
             float: left;
+            margin-top: -30px;
             box-sizing: border-box;
-            border: 1px solid #00000000;
+            border: 1px solid #000000;
         }
         div.right {
             width:50%;
+            float: right;
+            margin-top: -30px;
             box-sizing: border-box;
-            border: 1px solid #00000079;
-        }
-        nav {
-            position: absolute;
-            top: 92px;
-            width: 140px;
-            background-color: #b0e0e6;
-            border-right: 1px solid #ddd;
-            height: 506px
         }
         #calendar {
-            border: 1px solid #cccccc00;
+            height: 582px;
             text-align: center;
+            border: 1px solid #000000;
         }
         .calendar-grid {
             display: grid;
-            border: 1px solid #cccccc00;
+            border: 1px solid #00000000;
             grid-template-columns: repeat(7, auto);
             width: 100%;
-            height: 60px;
+            height: 80px;
         }
         .calendar-cell {
-            border: 1px solid #cccccc00;
+            border: 1px solid #00000000;
             width: 100%;
-            height: 70px;
+            height: 80px;
         }
         .today {
             background-color: rgba(255, 255, 0, 0.465);
         }
         table {
             width: 100%;
-            height: 50%;
+            height: 500px;
             border-collapse: separate;
             border-spacing: 10px 10px;
         }
@@ -77,98 +227,73 @@
         }
         caption {
             height: 40px;
-            background-color: #98c3e5;
+            background-color: #ffffff;
             text-align: center;
         }
 
-
-    
     </style>
 </head>
+<body bgcolor="#696969">
+<div class="navbar">
+    <div class="logo">
+        HEalthy Long PERsist
+    </div>
 
-<body bgcolor="#98c3e5">
-    <header>
-        <h3> HELPER </h3>
-    </header>
-    
-    <nav>
-        <h1>MENU</h1>
-        <!--왼쪽 사이드 메뉴바-->
-        <ul class="menu">
-            <li><a onclick="window.location.href='/mainPage'" target="_self" style="font-size: 17px;" >메인 홈</a></li>
-            <li><a onclick="window.location.href='/member/myRoutine'" target="_self" style="font-size: 17px;" >나의 루틴</a></li>
-            <li><a onclick="window.location.href='/member/myHistory'" target="_self" style="font-size: 17px;">나의 기록</a></li>
-            <li><a onclick="window.location.href='/member/myNutrition'" target="_self" style="font-size: 17px;">나의 식단</a></li>
-            <li><a onclick="window.location.href='/Community'" target="_self" style="font-size: 17px;">헬판</a></li>
-            <li><a onclick="window.location.href='/member/myCalendar'" target="_self" style="font-size: 17px;">캘린더</a></li>
-            <li><a onclick="window.location.href='/member/myPage'" target="_self" style="font-size: 17px;">나의 정보</a></li>
-        </ul>
-        <!--왼쪽 사이드 메뉴바-->
-    </nav>
- 
-    <div>
-        <div class="left" style="background-color: #ffffff;;"onclick='divBtn1();'><br>헬판<br>
-            <table class="board_list">
-                <caption>게시판 목록</caption>
-                <thead>
-                    <tr><br><br>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>글쓴이</th>
-                        <th>작성일</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>5</td>
-                        <td class="tit">
-                            <a href="#">운동 루틴 추천받아요!!</a>
-                        </td>
-                        <td>영차</td>
-                        <td>2023-11-20</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td class="tit">
-                            <a href="#">식단 힘들다...</a>
-                        </td>
-                        <td>뚜시뚜시</td>
-                        <td>2023-11-12</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="tit">
-                            <a href="#">운동 3개월차ㅎ</a>
-                        </td>
-                        <td>헬린이</td>
-                        <td>2023-11-02</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="tit">
-                            <a href="#">헬스 1년 몸상태</a>
-                        </td>
-                        <td>헬창</td>
-                        <td>2023-10-28</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td class="tit">
-                            <a href="#">보조제 추천!</a>
-                        </td>
-                        <td>빠샤</td>
-                        <td>2023-10-24</td>
-                    </tr>
-                </tbody>
-            </table>
-        
-        </div>
+    <div class="menu">
+        <a class="nav-link text-light" onclick="window.location.href='/logout'">로그아웃</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/mainPage'">메인홈</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myPage'">나의 정보</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myHistory'">나의 기록</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myRoutine'">나의 루틴</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myNutrition'">나의 식단</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myCalendar'">나의 달력</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/community/page=1'">헬판</a>
+    </div>
+</div>
+<br><br><br><br>
+<div>
+    <div class="left" style="background-color: #ffffff;;"onclick='divBtn1();'><br>헬판<br>
+        <h1>헬판</h1>
+        <table class="board_list">
+            <caption>게시판 목록</caption>
 
-        <div class="right" id="calendar" style="background-color: #f6e1e1;;" onclick='divBtn();'>
-            <script async src="/js/home_calendar.js"></script>
-            
-        </div>
-    </div> 
+            <thead>
+            <tr><br><br>
+                <th>번호</th>
+                <th>제목</th>
+                <th>글쓴이</th>
+                <th>작성일</th>
+            </tr>
+            </thead>
+            <tbody th:if="${recently5Notice.size() > 0}">
+            <tr th:each="notice, noticeNum : ${recently5Notice}">
+                <td th:text="6 - ${noticeNum.count}"></td>
+                <td>
+                    <a th:text="${notice.title}" th:href="@{/community/detail(id=${notice.id})}"></a>
+                </td>
+                <td th:text="${notice.ot_Username}"></td>
+                <td th:text="${notice.createDate}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="right" id="calendar" style="background-color: #ffffff;;" onclick='divBtn();'>
+        <script async src="/js/home_calendar.js"></script>
+
+    </div>
+</div>
+
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
