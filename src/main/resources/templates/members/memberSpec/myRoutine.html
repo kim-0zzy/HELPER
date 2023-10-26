@@ -107,7 +107,7 @@ tr:nth-child(2){
                         <td>반복수</td>
                         <td>세트수</td>
                         <td>유산소</td>
-                    </tr> <!-- 부위별 운동 종목 -->
+                    </tr> <!-- 부위별 운동 종목 // 서브 파티션도 만들어야됨 각 칸 세로로 2분할 할것 -->
                     <tr class="info" th:object="${partition}">
                         <td th:text="*{getMainPartition().getMainBack()}">등운동</td>
                         <td th:text="*{getMainPartition().getMainChest()}">가슴운동</td>
@@ -130,6 +130,27 @@ tr:nth-child(2){
             </table>
         </div>        
     </div> 
+
+<script th:inline="javascript">
+    var partition = /*[[${partition}]]*/ null;
+</script>
+<script>
+    var main_chest = partition.mainPartition.mainChest;
+    var main_back = partition.mainPartition.mainBack;
+    var main_shoulder = partition.mainPartition.mainShoulder;
+    var main_leg = partition.mainPartition.mainLeg;
+    var main_reps = partition.mainPartition.mainReps;
+    var main_sets = partition.mainPartition.mainSets;
+    var main_aerobic = partition.mainPartition.mainAerobic;
+
+
+    var sub_chest = partition.subPartition.subChest;
+    var sub_back = partition.subPartition.subBack;
+    var sub_shoulder = partition.subPartition.subShoulder;
+    var sub_leg = partition.subPartition.subLeg;
+    var sub_reps = partition.subPartition.subReps;
+    var sub_sets = partition.subPartition.subSets;
+</script>
 
 </body>
 </html>

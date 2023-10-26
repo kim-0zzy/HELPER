@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -20,24 +21,30 @@ public class MemberSpecHistory {
     @JoinColumn(name = "memberSpec_id")
     private MemberSpec memberSpec;
 
-    private int make_Year;
-    private int make_Month;
-    private int make_Day;
+//    private int make_Year;
+//    private int make_Month;
+//    private int make_Day;
+    private LocalDateTime make_date_withTime;
+    private LocalDate make_date;
     private int his_weight;
     private int his_career;
 
     public MemberSpecHistory(int his_weight, int his_career) {
-        this.make_Year = LocalDate.now().getYear();
-        this.make_Month = LocalDate.now().getMonth().getValue();
-        this.make_Day = LocalDate.now().getDayOfMonth();
+//        this.make_Year = LocalDate.now().getYear();
+//        this.make_Month = LocalDate.now().getMonth().getValue();
+//        this.make_Day = LocalDate.now().getDayOfMonth();
+        this.make_date = LocalDate.now();
+        this.make_date_withTime = LocalDateTime.now();
         this.his_weight = his_weight;
         this.his_career = his_career;
     }
 
     public void setHistory(int make_Year, int make_Month, int make_Day, int his_career, int his_weight){
-        this.make_Year = LocalDate.now().getYear();
-        this.make_Month = LocalDate.now().getMonth().getValue();
-        this.make_Day = LocalDate.now().getDayOfMonth();
+//        this.make_Year = LocalDate.now().getYear();
+//        this.make_Month = LocalDate.now().getMonth().getValue();
+//        this.make_Day = LocalDate.now().getDayOfMonth();
+        this.make_date = LocalDate.now();
+        this.make_date_withTime = LocalDateTime.now();
         this.his_weight = his_weight;
         this.his_career = his_career;
     }

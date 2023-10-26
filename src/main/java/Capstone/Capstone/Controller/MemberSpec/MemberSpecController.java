@@ -12,7 +12,6 @@ import Capstone.Capstone.Entity.MemberSpecHistory;
 import Capstone.Capstone.Service.HistoryService;
 import Capstone.Capstone.Service.MemberSpecService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
@@ -109,21 +107,21 @@ public class MemberSpecController {
         String formGoal = createMemberSpecForm.getGoals();
         Goals goals = null;
         switch (formGender) {
-            case "MALE" -> {
+            case "1" -> {
                 gender = Gender.MALE;
             }
-            case "FEMALE" ->{
+            case "2" ->{
                 gender = Gender.FEMALE;
             }
         }
         switch (formGoal) {
-            case "DIET" -> {
+            case "1" -> {
                 goals = Goals.DIET;
-            }case "BULKUP" ->{
+            }case "2" ->{
                 goals = Goals.BULKUP;
-            }case "STRENGTH" ->{
+            }case "3" ->{
                 goals = Goals.STRENGTH;
-            }case "ENDURANCE" ->{
+            }case "4" ->{
                 goals = Goals.ENDURE;
             }
         }
@@ -170,43 +168,46 @@ public class MemberSpecController {
     @Transactional
     @PostMapping("/member/updateMS")
     public String updateMemberSpec(@Valid UpdateMemberSpecForm updateMemberSpecForm, BindingResult result
-            ,@RequestParam("height") int height, @RequestParam("weight") int weight, @RequestParam("waist") int waist
-            ,@RequestParam("hip") int hip, @RequestParam("age") int age, @RequestParam("career") int career
-            ,@RequestParam("times") int times, @RequestParam("gender") String gender, @RequestParam("goals") String goals
+            ,@RequestParam("weight") int weight, @RequestParam("waist") int waist
+            ,@RequestParam("hip") int hip, @RequestParam("age") int age
+            ,@RequestParam("times") int times, @RequestParam("goals") String goals
                 ){
         if (result.hasErrors()) {
             return "/members/memberSpec/updateMemberSpecForm";
         }
         Long memberId = loadLoginMember();
         MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(memberId);
+        MemberSpecDTO memberSpecDTO =  MemberSpecDTO.builder()
+                .height(memberSpec.getHeight())
+                .weight(memberSpec.getWeight())
+                .waist(memberSpec.getWaist())
+                .hip(memberSpec.getHip())
+                .career(memberSpec.getCareer() / 100)
+                .age(memberSpec.getAge())
+                .times(memberSpec.getTimes())
+                .gender(memberSpec.getGender())
+                .goals(memberSpec.getGoals())
+                .level(memberSpec.getLevel())
+                .build();
 
-        Gender updateGender = null;
         Goals updateGoals = null;
-        switch (gender) {
-            case "MALE" -> {
-                updateGender = Gender.MALE;
-            }
-            case "FEMALE" ->{
-                updateGender = Gender.FEMALE;
-            }
-        }
         switch (goals) {
-            case "DIET" -> {
+            case "1" -> {
                 updateGoals = Goals.DIET;
-            }case "BULKUP" ->{
+            }case "2" ->{
                 updateGoals = Goals.BULKUP;
-            }case "STRENGTH" ->{
+            }case "3" ->{
                 updateGoals = Goals.STRENGTH;
-            }case "ENDURANCE" ->{
+            }case "4" ->{
                 updateGoals = Goals.ENDURE;
             }
         }
 
-        memberSpecService.updateBasicMemberSpec(memberSpec,height,
-                weight,waist,hip, career * 100, age,times,
-                updateGender,updateGoals);
+        memberSpecService.updateBasicMemberSpec(memberSpec,memberSpecDTO.getHeight(),
+                weight,waist,hip, memberSpecDTO.getCareer() * 100, age,times,
+                memberSpecDTO.getGender(),updateGoals);
 
-        MemberSpecHistory history = new MemberSpecHistory(weight, career * 100);
+        MemberSpecHistory history = new MemberSpecHistory(weight, memberSpecDTO.getCareer() * 100);
         history.setMemberSpec(memberSpec);
         historyService.saveHistory(history);
 
@@ -214,7 +215,7 @@ public class MemberSpecController {
         memberSpec.makeLevel();
         Level level = memberSpec.getLevel();
         System.out.println("level = " + level);
-        return "redirect:/members/memberSpec/myPage";
+        return "redirect:/member/myPage";
     }
 
     @GetMapping("/member/reEnterMS")
@@ -245,7 +246,7 @@ public class MemberSpecController {
             ,@RequestParam("times") int times, @RequestParam("gender") String gender, @RequestParam("goals") String goals){
 
         if (result.hasErrors()) {
-            return "/members/memberSpec/updateMemberSpecForm";
+            return "/members/memberSpec/updateMemberSpecForm_";
         }
         Long memberId = loadLoginMember();
         MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());

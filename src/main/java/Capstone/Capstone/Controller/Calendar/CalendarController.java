@@ -66,10 +66,10 @@ public class CalendarController {
         Calendar calendar = calendarService.findDateRecord(memberSpec.getId(), LocalDate.now().getYear(), LocalDate.now().getMonth().getValue(), day);
         if (calendar == null) {
             calendarService.saveProgress(new Calendar(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue(), day));
-            String SuccessMessage = "체크되었습니다.";
+            String SuccessMessage = "success";
             model.addAttribute("message", SuccessMessage);
         }else {
-            String FailMessage = "이미 존재하는 데이터입니다. 삭제하시겠습니까?";
+            String FailMessage = "fail";
             model.addAttribute("message", FailMessage);
             // 경고창 출력
         }

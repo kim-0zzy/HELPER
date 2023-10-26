@@ -13,8 +13,8 @@
             background-color: #aba9a9;
             padding: 10px;
             font-size: 25px;
-        }
-        .menu a:hover { background-color: yellowgreen; color: white;}
+        } 
+        .menu a:hover { background-color: rgba(71, 141, 215, 0.735); color: white;}
 
         .logo {
             font-weight: bold;
@@ -29,102 +29,107 @@
         .menu a {
             margin-right: 10px;
         }
-
-
+        
+       
 
         h1{ font-size: 30px;}
-
+       
         div.board {
-            width: 100%;
+            width: 100%; 
             height: 506px;
             float: right;
-
+        
             border: 1px solid #00000000;
             font-size: 20px;
         }
         .d-none{
-            display: none;
-        }
+    display: none;
+}
 
-        .table{
-            font-size :23px;
-            text-align: center;
-            width: 100%;
-            height: 600px;
-            margin-top: -40px;
-            border: 3px solid rgb(128, 128, 128);
-            background-color: #f4fafd;
-            border-collapse: separate;
-            border-spacing: 0px 10px;
-        }
-        tr{
-            border: 1px solid #807b7b64;
-        }
+.table{
+    font-size :25px;
+    color: #f6e6e6;
+    text-align: center;
+    width: 100%;
+    height: 600px;
+    margin-top: -40px;
+    border: 3px solid rgb(128, 128, 128);    
+    background-color: #1c496051;
+    border-collapse: separate;
+    border-spacing: 0px 10px;
+}
+tr{
+    border: 5px solid #807b7b; 
+}
+button {
+    border: 1px solid #00000062;
+}
+
     </style>
 </head>
 <body bgcolor="#696969">
-<div class="navbar">
-    <div class="logo">
-        HEalthy Long PERsist
+    <div class="navbar">
+        <div class="logo">
+            HEalthy Long PERsist
+        </div>
+    
+        <div class="menu">
+            <a class="nav-link text-light" onclick="window.location.href='/logout'">로그아웃</a>&nbsp;&nbsp;
+            <a class="nav-link text-light" onclick="window.location.href='/mainPage'">메인홈</a>&nbsp;&nbsp;
+            <a class="nav-link text-light" onclick="window.location.href='/member/myPage'">나의 정보</a>&nbsp;&nbsp;
+            <a class="nav-link text-light" onclick="window.location.href='/member/myHistory'">나의 기록</a>&nbsp;&nbsp;
+            <a class="nav-link text-light" onclick="window.location.href='/member/myRoutine'">나의 루틴</a>&nbsp;&nbsp;
+            <a class="nav-link text-light" onclick="window.location.href='/member/myNutrition'">나의 식단</a>&nbsp;&nbsp;
+            <a class="nav-link text-light" onclick="window.location.href='/community/page=1'">헬판</a>
+        </div>
     </div>
+    <br><br><br><br>
+    <section class="main">
+        <h1 class="d-none">게시판</h1>
+            <div class="board">
+                <table class="table">
+                    <tr height="50px">
+                        <td colspan="3" height="40px">
+                            <b th:text="${nickName}"></b>님은 저희와 함께 &nbsp;&nbsp;<b font-size="5" th:text="${togetherCareer}"></b>&nbsp;&nbsp;일차 운동중 입니다.
+                            <button type="Submit" class="btn btn-dark btn-lg" style="font-family: 'BMJUA'; font-size: 20px; color: #edeaea; background: #b0e0e629; float: right;" onclick="window.location.href='/member/updateMS'">정보업데이트</button>
+                        </td>
+                    </tr>
 
-    <div class="menu">
-        <a class="nav-link text-light" onclick="window.location.href='/logout'">로그아웃</a>&nbsp;&nbsp;
-        <a class="nav-link text-light" onclick="window.location.href='/mainPage'">메인홈</a>&nbsp;&nbsp;
-        <a class="nav-link text-light" onclick="window.location.href='/member/myPage'">나의 정보</a>&nbsp;&nbsp;
-        <a class="nav-link text-light" onclick="window.location.href='/member/myHistory'">나의 기록</a>&nbsp;&nbsp;
-        <a class="nav-link text-light" onclick="window.location.href='/member/myRoutine'">나의 루틴</a>&nbsp;&nbsp;
-        <a class="nav-link text-light" onclick="window.location.href='/member/myNutrition'">나의 식단</a>&nbsp;&nbsp;
-        <a class="nav-link text-light" onclick="window.location.href='/member/myCalendar'">나의 달력</a>&nbsp;&nbsp;
-        <a class="nav-link text-light" onclick="window.location.href='/community/page=1'">헬판</a>
-    </div>
-</div>
-<br><br><br><br>
-<section class="main">
-    <h1 class="d-none">게시판</h1>
-    <div class="board">
-        <table class="table">
-            <tr>
-                <td colspan="3" height="40px">
-                    <b font-size="5" th:text="${nickName}"></b>님은 저희와 함께 &nbsp;&nbsp;<b font-size="5" th:text="${togetherCareer}"></b>&nbsp;&nbsp;일차 운동중 입니다.
-                </td>
-            </tr>
-
-            <tr height="20px" bgcolor="#5F9EA0">
-                <td width="33%">레벨</td>
-                <td width="33%">체중</td>
-                <td width="33%">목표</td>
-            </tr>
-            <tr height="120px">
-                <td>
-                    <p th:text="${memberSpec.getLevel()}"> 레벨 </p>
-                    <hr width="70%">
-                    <font size=3>.Level</font>
-                </td>
-                <td>
-                    <p th:text="${memberSpec.getWeight()}"> 체중 </p>
-                    <hr width="70%">
-                    <font size=3>kg</font>
-                </td>
-                <td>
-                    <p th:text="${memberSpec.getGoals()}"> 목표 </p>
-                    <hr width="70%">
-                    <font size=3>&nbsp;</font>
-                </td>
-            </tr>
-            <tr height="20px" bgcolor="#5F9EA0">
-                <td>근신경계활성도</td>
-                <td>근신경계활성도</td>
-                <td>근육증가량</td>
-            </tr>
-            <tr>
-                <td>현진이 작업</td>
-                <td>현진이 작업</td>
-                <td>현진이 작업</td>
-            </tr>
-        </table>
-    </div>
-</section>
+                    <tr height="20px" bgcolor="#5F9EA0">
+                        <td width="33%">레벨</td>
+                        <td width="33%">체중</td>
+                        <td width="33%">목표</td>
+                    </tr>
+                    <tr height="120px">
+                        <td>
+                            <p th:text="${memberSpec.getLevel()}"> 레벨 </p>
+                            <hr width="70%">
+                            <font size=3>.Level</font>
+                        </td>
+                        <td>
+                            <p th:text="${memberSpec.getWeight()}"> 체중 </p>
+                            <hr width="70%">
+                            <font size=3>kg</font>
+                        </td>
+                        <td>
+                            <p th:text="${memberSpec.getGoals()}"> 목표 </p>
+                            <hr width="70%">
+                            <font size=3>&nbsp;</font>
+                        </td>
+                    </tr>
+                    <tr height="20px" bgcolor="#5F9EA0">
+                        <td>근신경계활성도</td>
+                        <td>근신경계활성도</td>
+                        <td>근육증가량</td>
+                    </tr>
+                    <tr>
+                        <td>현진이 작업</td>
+                        <td>현진이 작업</td>
+                        <td>현진이 작업</td>
+                    </tr>
+                </table>
+            </div>
+    </section>
 </body>
 </html>
 

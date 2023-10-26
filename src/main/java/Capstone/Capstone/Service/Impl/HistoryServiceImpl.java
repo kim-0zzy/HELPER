@@ -32,9 +32,8 @@ public class HistoryServiceImpl implements HistoryService {
 
         for (MemberSpecHistory memberSpecHistory : all) {
             MemberSpecHistoryDTO memberSpecHistoryDTO = MemberSpecHistoryDTO.builder()
-                    .make_Year(memberSpecHistory.getMake_Year())
-                    .make_Month(memberSpecHistory.getMake_Month())
-                    .make_Day(memberSpecHistory.getMake_Day())
+                    .make_date(memberSpecHistory.getMake_date())
+                    .make_date_withTime(memberSpecHistory.getMake_date_withTime())
                     .his_weight(memberSpecHistory.getHis_weight())
                     .his_career(memberSpecHistory.getHis_career() / 100)
                     .build();
@@ -50,9 +49,8 @@ public class HistoryServiceImpl implements HistoryService {
             return null;
         }else{
             return MemberSpecHistoryDTO.builder()
-                    .make_Year(firstRecord.getMake_Year())
-                    .make_Month(firstRecord.getMake_Month())
-                    .make_Day(firstRecord.getMake_Day())
+                    .make_date(firstRecord.getMake_date())
+                    .make_date_withTime(firstRecord.getMake_date_withTime())
                     .his_career(firstRecord.getHis_career() / 100)
                     .his_weight(firstRecord.getHis_weight())
                     .build();
