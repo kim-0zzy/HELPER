@@ -1,156 +1,199 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>my routine</title>
+    <title>헬판</title>
     <meta charset="utf-8">
-    <link href="/css/style.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
     <style>
-        h3 {font-size: 30px;
-            text-align: left;}
-    
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #aba9a9;
+            padding: 10px;
+            font-size: 25px;
+        }
+        .menu a:hover { background-color: rgba(71, 141, 215, 0.735); color: white;}
+
+        .logo {
+            font-weight: bold;
+            margin-right: auto;
+            color: #585858;
+        }
+
+        .menu {
+            display: flex;
+        }
+
+        .menu a {
+            margin-right: 10px;
+        }
+
         body {text-align: center;
         }
-        h1{ font-size: 18px; padding: 20px;}
-        
-        .menu li a {
-            height: 30px;
-            line-height: 30px;
-            display: block;
-            padding: 10px;
-            font-size: 12px;
-            color: #555;
-        }
-        .menu li a:hover { background-color: yellowgreen; color: white;}
-        div {
-            width: 88%; 
-            height: 506px;
-            float: right;
-        
-            border: 1px solid #000;
-            font-size: 20px;
-        }
 
-        nav {
-            position: absolute;
-            top: 92px;
-            width: 140px;
-            background-color: #b0e0e6;
-            border-right: 1px solid #e7e7e700;
-            height: 506px
-        }
+        h1{ font-size: 30px;}
+
         .board{
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    border: 1px solid #cccccc00;
-}
- 
-.table{
-    font-size :23px;
-    width: 100%;
-    height: 506px;
-    border: 1px solid rgba(128, 128, 128, 0);    
-    text-align: center;
-    background-color: #445fa8bd;
-}
-tr.days {
-    background: #98c3e5;
-}
-tr.sucess {
-    background: #b8ccf8;
-}
- 
-td{
-    height: 60px;
-    border-bottom:1px solid black;
-}
-tr:nth-child(2){
-    height: 370px;
-    background: white;
-}
+            width: 100%;
+            height: 700px;
+            margin-top: -30px;
+            border: 1px solid #cccccc00;
+        }
 
-    
+        .table{
+            font-size :23px;
+            color: #f6e6e6b5;
+            width: 100%;
+            height: 680px;
+            border: 1px solid rgba(128, 128, 128, 0);
+            text-align: center;
+            background-color: #1c496051;
+        }
+
+
+        td{
+            width: 20%;
+            height: 60px;
+            border: 2px solid rgba(128, 128, 128, 0.306);}
+
+        tr {
+            height: 100px;
+        }
+
+        td:nth-child(1){
+            width: 10%;
+            border: 2px solid rgba(128, 128, 128, 0.419);
+        }
+        hr{
+            width:70%;
+        }
+
+
+
     </style>
 </head>
+<body bgcolor="#696969">
+<div class="navbar">
+    <div class="logo">
+        HEalthy Long PERsist
+    </div>
 
-<body bgcolor="#98c3e5">
-    <header>
-        <h3> HELPER 나의 루틴 </h3>
-    </header>
-    
-    <nav>
-        <h1>MENU</h1>
-        <!--왼쪽 사이드 메뉴바-->
-        <ul class="menu">
-            <li><a onclick="window.location.href='/mainPage'" target="_self" style="font-size: 17px;" >메인 홈</a></li>
-            <li><a onclick="window.location.href='/member/myRoutine'" target="_self" style="font-size: 17px;" >나의 루틴</a></li>
-            <li><a onclick="window.location.href='/member/myHistory'" target="_self" style="font-size: 17px;">나의 기록</a></li>
-            <li><a onclick="window.location.href='/member/myNutrition'" target="_self" style="font-size: 17px;">나의 식단</a></li>
-            <li><a onclick="window.location.href='/community/page=1'" target="_self" style="font-size: 17px;">헬판</a></li>
-            <li><a onclick="window.location.href='/member/myCalendar'" target="_self" style="font-size: 17px;">캘린더</a></li>
-            <li><a onclick="window.location.href='/member/myPage'" target="_self" style="font-size: 17px;">나의 정보</a></li>
-        </ul>
-        <!--왼쪽 사이드 메뉴바-->
-    </nav>
-    <span> <!-- ↓ 주 몇회하는지 -->
-        <h1 th:text="${times}"></h1>
-    </span>
-    <div>
-        <div class="board" style="background-color: #ffffff;;">
+    <div class="menu">
+        <a class="nav-link text-light" onclick="window.location.href='/logout'">로그아웃</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/mainPage'">메인홈</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myPage'">나의 정보</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myHistory'">나의 기록</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myRoutine'">나의 루틴</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myNutrition'">나의 식단</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/community/page=1'">헬판</a>
+    </div>
+</div>
+<br><br><br><br>
+<div>
+    <div class="board" style="background-color: #1c496051">
+        <form th:object="${partition}">
             <table class="table">
-                <thead class="thead">
-                    <tr class="days">
-                        <td>등운동</td>
-                        <td>가슴운동</td>
-                        <td>어깨운동</td>
-                        <td>하체운동</td>
-                        <td>반복수</td>
-                        <td>세트수</td>
-                        <td>유산소</td>
-                    </tr> <!-- 부위별 운동 종목 // 서브 파티션도 만들어야됨 각 칸 세로로 2분할 할것 -->
-                    <tr class="info" th:object="${partition}">
-                        <td th:text="*{getMainPartition().getMainBack()}">등운동</td>
-                        <td th:text="*{getMainPartition().getMainChest()}">가슴운동</td>
-                        <td th:text="*{getMainPartition().getMainShoulder()}">어깨운동</td>
-                        <td th:text="*{getMainPartition().getMainLeg()}">하체운동</td>
-                        <td th:text="*{getMainPartition().getMainReps()}">반복수</td>
-                        <td th:text="*{getMainPartition().getMainSets()}">세트수</td>
-                        <td th:text="*{getMainPartition().getMainAerobic()}">유산소</td>
-                    </tr>
-                    <tr class="sucess">
-                        <td><input type="checkbox" name="xxx" value="yyy"></td>
-                        <td><input type="checkbox" name="xxx" value="yyy"></td>
-                        <td><input type="checkbox" name="xxx" value="yyy"></td>
-                        <td><input type="checkbox" name="xxx" value="yyy"></td>
-                        <td><input type="checkbox" name="xxx" value="yyy"></td>
-                        <td><input type="checkbox" name="xxx" value="yyy"></td>
-                        <td><input type="checkbox" name="xxx" value="yyy"></td>
-                    </tr>
-                </thead>
+                <tr class="">
+                    <td >주&nbsp;<b th:text="${times}"></b>&nbsp;회 </td>
+                    <td >등운동</td>
+                    <td >가슴운동</td>
+                    <td >어깨운동</td>
+                    <td >하체운동</td>
+                    <td >반복수 X 세트수</td>
+                </tr>
+                <tr class="main_name">
+                    <td rowspan="2">main</td>
+                    <td th:text="*{getMainPartition().getMainBack()}"></td>
+                    <td th:text="*{getMainPartition().getMainChest()}"></td>
+
+                    <td th:text="*{getMainPartition().getMainShoulder()}"></td>
+                    <td th:text="*{getMainPartition().getMainLeg()}"></td>
+
+
+                    <td>
+
+                    </td>
+                </tr>
+                <tr class="main">
+                    <!--<td>main</td>-->
+                    <!--                    <td th:text="*{getMainPartition().getMainBack()}">-->
+                    <td th:if="*{mainPartition.getMainBack() eq 'PullUp'}"><img src="/routine_img/등운동/풀업.png"></td>
+                    <td th:if="*{mainPartition.getMainBack() eq 'LatPullDown'}"><img src="/routine_img/등운동/랫풀다운.png"></td>
+
+
+                    <td th:if="*{mainPartition.getMainChest() eq 'BenchPress'}"><img src="/routine_img/가슴운동/벤치프레스.jpg"></td>
+                    <td th:if="*{mainPartition.getMainChest() eq 'ChestPress'}"><img src="/routine_img/가슴운동/체스트프레스머신.jpg"></td>
+
+
+
+                    <td th:if="*{mainPartition.getMainShoulder() eq 'OverHeadPress'}"><img src="/routine_img/어깨운동/OHP.png"> </td>
+                    <td th:if="*{mainPartition.getMainShoulder() eq 'ShoulderPressMachine'}"><img src="/routine_img/어깨운동/숄더프레스머신.png"> </td>
+
+
+                    <td th:if="*{mainPartition.getMainLeg() eq 'Squat|DeadLift'}"> <img src="/routine_img/하체운동/스쿼트_데드리프트.png"></td>
+                    <td th:if="*{mainPartition.getMainLeg() eq 'LegCull&Extension'}"> <img src="/routine_img/하체운동/레그컬&레그익스텐션.png"></td>
+
+                    <td>
+                        <b th:text="*{getMainPartition().getMainReps()}"></b> &nbsp;X&nbsp; <b th:text="*{getMainPartition().getMainSets()}"><hr></b>
+                    </td>
+                </tr>
+                <tr class="sub_name">
+                    <td rowspan="2">sub</td>
+                    <td th:text="*{getSubPartition().getSubBack()}"></td>
+                    <td th:text="*{getSubPartition().getSubChest()}"></td>
+                    <td th:text="*{getSubPartition().getSubShoulder()}"></td>
+                    <td th:text="*{getSubPartition().getSubLeg()}"></td>
+
+                    <td>
+                    </td>
+                </tr>
+                <tr class="sub">
+                    <td th:if="*{subPartition.getSubBack() eq 'LatPullDown'}"><img src="/routine_img/등운동/랫풀다운.png"></td>
+                    <td th:if="*{subPartition.getSubBack() eq 'SeatedRow'}"><img src="/routine_img/등운동/시티드로우.png"></td>
+                    <td th:if="*{subPartition.getSubBack() eq 'Unnecessary'}"><img src="/routine_img/Unnecessary.png"></td>
+
+                    <td th:if="*{subPartition.getSubChest() eq 'ChestPress'}"><img src="/routine_img/가슴운동/체스트프레스머신.png"></td>
+                    <td th:if="*{subPartition.getSubChest() eq 'InclineBenchPress'}"><img src="/routine_img/가슴운동/인클라인벤치프레스.png"></td>
+                    <td th:if="*{subPartition.getSubChest() eq 'Unnecessary'}"><img src="/routine_img/Unnecessary.png"></td>
+
+                    <td th:if="*{subPartition.getSubShoulder() eq 'ShoulderPressMachine'}"><img src="/routine_img/어깨운동/숄더프레스머신.png"> </td>
+                    <td th:if="*{subPartition.getSubShoulder() eq 'SideLateralRaise'}"><img src="/routine_img/어깨운동/사레레.png"> </td>
+                    <td th:if="*{subPartition.getSubShoulder() eq 'Unnecessary'}"><img src="/routine_img/Unnecessary.png"> </td>
+
+                    <td th:if="*{subPartition.getSubLeg() eq 'LegCull&Extension'}"><img src="/routine_img/하체운동/레그컬&레그익스텐션.png"></td>
+                    <td th:if="*{getSubPartition().getSubLeg() eq 'LegPress'}"><img src="/routine_img/하체운동/레그프레스.png"></td>
+                    <td th:if="*{getSubPartition().getSubLeg() eq 'Unnecessary'}"><img src="/routine_img/Unnecessary.png"></td>
+
+                    <td>
+                        <b th:text="*{getSubPartition().getSubReps()}"></b> &nbsp;X&nbsp; <b th:text="*{getSubPartition().getSubSets()}"><hr></b>
+                    </td>
+                </tr>
+                <tr class="aero">
+                    <td>유산소</td>
+                    <td colspan="2"> <img src="/routine_img/트레이드밀.png"> </td>
+                    <td colspan="3" th:text="*{getMainPartition().getMainAerobic()}"></td>
+                </tr>
             </table>
-        </div>        
-    </div> 
-
-<script th:inline="javascript">
-    var partition = /*[[${partition}]]*/ null;
-</script>
-<script>
-    var main_chest = partition.mainPartition.mainChest;
-    var main_back = partition.mainPartition.mainBack;
-    var main_shoulder = partition.mainPartition.mainShoulder;
-    var main_leg = partition.mainPartition.mainLeg;
-    var main_reps = partition.mainPartition.mainReps;
-    var main_sets = partition.mainPartition.mainSets;
-    var main_aerobic = partition.mainPartition.mainAerobic;
+            <font color="beige">TIP. 최소반복수 만큼 가능한 무게로 설정하셔서 최대반복수까지 서서히 늘려가세요. </font>
+        </form>
+    </div>
+</div>
 
 
-    var sub_chest = partition.subPartition.subChest;
-    var sub_back = partition.subPartition.subBack;
-    var sub_shoulder = partition.subPartition.subShoulder;
-    var sub_leg = partition.subPartition.subLeg;
-    var sub_reps = partition.subPartition.subReps;
-    var sub_sets = partition.subPartition.subSets;
-</script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

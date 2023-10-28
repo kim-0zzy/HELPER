@@ -43,11 +43,14 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public String create(CreateMemberForm createMemberForm){
-        Member member = new Member(createMemberForm.getRealName(), createMemberForm.getUsername(), passwordEncoder.encode(createMemberForm.getPassword()));
-        memberService.join(member);
-
-        return "redirect:/";
+    public String create(CreateMemberForm createMemberForm) throws IllegalStateException{
+        try{
+            Member member = new Member(createMemberForm.getRealName(), createMemberForm.getUsername(), passwordEncoder.encode(createMemberForm.getPassword()));
+            memberService.join(member);
+            return "redirect:/";
+        }catch (IllegalStateException e){
+            return "redirect:/signUp";
+        }
     }
 
     @GetMapping("/login")

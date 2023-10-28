@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -236,39 +237,39 @@ public class MemberSpecController {
 
         model.addAttribute("savedMemberSpec", memberSpecDTO);
         model.addAttribute("reEnterMemberSpecForm", new UpdateMemberSpecForm());
-        return "/members/memberSpec/updateMemberSpecForm";
+        return "/members/memberSpec/reEnterMemberSpecForm";
     }
     @Transactional
     @PostMapping("/member/reEnterMS")
-    public String reEnterMemberSpec(@Valid UpdateMemberSpecForm reEnterMemberSpecForm, BindingResult result
+    public String reEnterMemberSpec(UpdateMemberSpecForm reEnterMemberSpecForm, BindingResult result
             ,@RequestParam("height") int height, @RequestParam("weight") int weight, @RequestParam("waist") int waist
             ,@RequestParam("hip") int hip, @RequestParam("age") int age, @RequestParam("career") int career
             ,@RequestParam("times") int times, @RequestParam("gender") String gender, @RequestParam("goals") String goals){
 
         if (result.hasErrors()) {
-            return "/members/memberSpec/updateMemberSpecForm_";
+            return "/members/memberSpec/reEnterMemberSpecForm";
         }
         Long memberId = loadLoginMember();
         MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
 
         Gender updateGender = null;
         Goals updateGoals = null;
-        switch (reEnterMemberSpecForm.getGender()) {
-            case "MALE" -> {
+        switch (gender) {
+            case "1" -> {
                 updateGender = Gender.MALE;
             }
-            case "FEMALE" ->{
+            case "2" ->{
                 updateGender = Gender.FEMALE;
             }
         }
-        switch (reEnterMemberSpecForm.getGoals()) {
-            case "DIET" -> {
+        switch (goals) {
+            case "1" -> {
                 updateGoals = Goals.DIET;
-            }case "BULKUP" ->{
+            }case "2" ->{
                 updateGoals = Goals.BULKUP;
-            }case "STRENGTH" ->{
+            }case "3" ->{
                 updateGoals = Goals.STRENGTH;
-            }case "ENDURANCE" ->{
+            }case "4" ->{
                 updateGoals = Goals.ENDURE;
             }
         }
@@ -277,9 +278,8 @@ public class MemberSpecController {
                 weight,waist,hip, career * 100, age,times,
                 updateGender,updateGoals);
 
-        MemberSpecHistory firstRecord = historyService.findFirstRecord_V2(memberId);
-        firstRecord.setHistory(LocalDateTime.now().getYear(), LocalDateTime.now().getMonthValue(), LocalDateTime.now().getDayOfMonth(),
-                reEnterMemberSpecForm.getCareer() * 100, reEnterMemberSpecForm.getWeight());
+        MemberSpecHistory firstRecord = historyService.findFirstRecord_V2(memberSpec.getId());
+        firstRecord.setHistory(LocalDate.now(), LocalDateTime.now(),career * 100, weight);
         Long historyId = firstRecord.getId();
 
         memberSpec.makeLevel();

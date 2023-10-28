@@ -8,9 +8,65 @@
     <title>Weight Chart</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-trendline"></script>
+    <link href="style.css" rel="stylesheet">
+    <style>
 
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #aba9a9;
+            padding: 10px;
+            font-size: 25px;
+        }
+        .menu a:hover { background-color: rgba(71, 141, 215, 0.735); color: white;}
+
+        .logo {
+            font-weight: bold;
+            margin-right: auto;
+            color: #585858;
+        }
+
+        .menu {
+            display: flex;
+        }
+
+        .menu a {
+            margin-right: 10px;
+        }
+
+        body {text-align: center;
+        }
+
+        h1{ font-size: 30px;}
+
+
+        div.chart {
+            width:95%; /*차트 폭(가로)설정*/
+            height: 600px; /*차트 높이(세로)설정*/
+            margin-top: 40px; /*차트가 위에서 부터 얼마나 떨어져 있을지 설정*/
+            float: center;
+            box-sizing: border-box;
+        }
+
+    </style>
 </head>
 <body>
+<div class="navbar">
+    <div class="logo">
+        HEalthy Long PERsist
+    </div>
+
+    <div class="menu">
+        <a class="nav-link text-light" onclick="window.location.href='/logout'">로그아웃</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/mainPage'">메인홈</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myPage'">나의 정보</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myHistory'">나의 기록</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myRoutine'">나의 루틴</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/member/myNutrition'">나의 식단</a>&nbsp;&nbsp;
+        <a class="nav-link text-light" onclick="window.location.href='/community/page=1'">헬판</a>
+    </div>
+</div>
     <div id="chartWindow">
         <canvas id="myChart"></canvas>
     </div>
@@ -82,3 +138,6 @@
     </script>
 </body>
 </html>
+
+
+

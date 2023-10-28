@@ -5,11 +5,10 @@
     <meta charset="utf-8">
     <link href="style.css" rel="stylesheet">
     <style>
-        h1 {text-align: center; color: #ffffff; font-size:40px;}
+        h1 {text-align: center; color: #fff; font-size:40px;}
         body {text-align: center;}
         td {width: 25%; height: 280px;}
-        table {margin: auto;
-        position: relative;}
+        table {margin: auto;}
         select{font-family: "BMJUA";
             width: 30%; 
             height: 30%;
@@ -21,7 +20,6 @@
             color: #e3eff1; 
             font-size: 20px; 
         }
-        
         a [id="save"]{
             position: relative;
             top: 30px; 
@@ -39,40 +37,39 @@
         input{
             font-size: 17px;
         }
-        
-        
+       
     </style>
 </head><br>
 
-<h1> Spec Update </h1><br><br>
+<h1> Spec Check </h1><br><br>
 
 <body bgcolor="#333333" style="color:rgb(255, 255, 255)">
 <form method="post" th:object="${savedMemberSpec}">
-<!--    <p>-->
-<!--        <label id="gender" th:field="*{gender}">성별 : &nbsp;&nbsp;&nbsp;-->
-<!--        <input type="radio" name="male" value="1" th:field="*{gender}"> 남성 &nbsp;-->
-<!--        <input type="radio" name="female" value="2" th:field="*{gender}"> 여성 -->
-<!--        </label> -->
-<!--    </p>-->
+    <p>
+        <label id="gender"  th:field="*{gender}">성별 : &nbsp;&nbsp;&nbsp;
+        <input type="radio" name="male" value="1" th:field="*{gender}"> 남성 &nbsp;
+        <input type="radio"  name="female" value="2" th:field="*{gender}"> 여성 
+        </label> 
+    </p>
     <br>
     <section>
         <article>
             <table border="2" style = "width:80%; font-size: 20px; background-color: #505555;">
                 <tr>
-                    <td>키<br><br><p th:text="*{height} + 'cm'"></p>&nbsp<br><br></td>
-                    <td>몸무게<br><br><input type="number" name="weight" th:value="*{weight}" style="width: 60px;">&nbsp;&nbsp;kg<br><br></td>
-                    <td>허리둘레<br><br><input type="number" name="waist" th:value="*{waist}" style="width: 60px;">&nbsp;&nbsp;cm<br><br></td>
-                    <td>엉덩이 둘레<br><br><input type="number" name="hip" style="width: 60px;" th:value="*{hip}">&nbsp;&nbsp;cm<br><br></td>
+                    <td>키<br><br><input type="number" required name="height" style="width: 60px;" th:value="*{height}">&nbsp;&nbsp;cm<br><br></td>
+                    <td>몸무게<br><br><input type="number" required name="weight" style="width: 60px;" th:value="*{weight}">&nbsp;&nbsp;kg<br><br></td>
+                    <td>허리둘레<br><br><input type="number" required name="waist" style="width: 60px;" th:value="*{waist}">&nbsp;&nbsp;cm<br><br></td>
+                    <td>엉덩이 둘레<br><br><input type="number" required name="hip" style="width: 60px;" th:value="*{hip}">&nbsp;&nbsp;cm<br><br></td>
                 </tr>
                 <tr>
-                    <td>나이<br><br><input type="number" name="age" style="width: 60px;" th:value="*{age}">&nbsp;&nbsp;세<br><br></td>
-                    <td>주 가능 횟수<br><br> 주 <input type="number" name="times" style="width: 60px;" th:value="*{times}" min="1" max="4">&nbsp;&nbsp;회<br><br></td>
+                    <td>나이<br><br><input type="number" required style="width: 60px;" name="age" th:value="*{age}">&nbsp;&nbsp;세<br><br></td>
+                    <td>주 가능 횟수<br><br> 주 <input type="number" required name="times" style="width: 60px;" th:value="*{times}" min="1" max="4">&nbsp;&nbsp;회<br><br></td>
                     
                     <td><label class="reg" for="career">운동 경력</label><br><br>
-                        <p th:text="*{career} + '일'"></p><br><br>
+                        <input type="number" name="career" required style="width: 60px;" multiple th:value="*{career}"> 일<br><br>
                     </td>
                     <td><label class="reg" for="purpose">운동 목적</label><br><br>
-                        <select size="4" id="purpose" style="font-size: 15px;" name="goals" multiple>
+                        <select size="4" id="purpose" style="font-size: 15px;" required multiple name="goals" th:field="*{goals}">
                             <option value="1">다이어트</option>
                             <option value="2">벌크업</option>
                             <option value="3">스트랭스</option>
@@ -83,10 +80,12 @@
             </table>
         </article>
     </section>
-    <a><input value="저장하기" id="save" type="submit" name="next"></a>
+    <a><input value="루틴생성 / 저장" id="save" type="submit" name="next"></a>
 </form>
 </body>
 </html>
+
+
 
 <!--<!DOCTYPE html>-->
 <!--<html xmlns:th="http://www.thymeleaf.org">-->
@@ -114,18 +113,18 @@
 <!--</head>-->
 <!--<br><br>-->
 <!--<body bgcolor="#98c3e5" style="color:rgb(19, 52, 72)">-->
-<!--<h2>신체 정보 수정</h2>-->
+<!--<h2>신체 정보 입력</h2>-->
 <!--<br><br>-->
-<!--<form method="post" th:object="${savedMemberSpec}">-->
-<!--    height: <input type="number" th:value="*{height}" style="font-size: 20px; background: #b0e0e6"  name="height"><br>-->
-<!--    weight: <input type="number" th:value="*{weight}" style="font-size: 20px; background: #b0e0e6"  name="weight"><br>-->
-<!--    waist: <input type="number" th:value="*{waist}" style="font-size: 20px; background: #b0e0e6"  name="waist"><br>-->
-<!--    hip: <input type="number" th:value="*{hip}" style="font-size: 20px; background: #b0e0e6"  name="hip"><br>-->
-<!--    age: <input type="number" th:value="*{age}" style="font-size: 20px; background: #b0e0e6"  name="age"><br>-->
-<!--    career: <input type="number" th:value="*{career}" style="font-size: 20px; background: #b0e0e6"  name="career"><br>-->
-<!--    times: <input type="number" th:value="*{times}" style="font-size: 20px; background: #b0e0e6"  name="times" min="1" max="4"><br>-->
-<!--    Gender: <input type="text" th:value="*{gender}" style="font-size: 20px; background: #b0e0e6"  name="gender"><br>-->
-<!--    Goals: <input type="text" th:value="*{goals}" style="font-size: 20px; background: #b0e0e6"  name="goals"><br>-->
+<!--<form method="post" th:object="${createMemberSpecForm}">-->
+<!--    height: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{height}"><br>-->
+<!--    weight: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{weight}"><br>-->
+<!--    waist: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{waist}"><br>-->
+<!--    hip: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{hip}"><br>-->
+<!--    age: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{age}"><br>-->
+<!--    career: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{career}"><br>-->
+<!--    times: <input type="number" style="font-size: 20px; background: #b0e0e6" th:field="*{times}" min="1" max="4"><br>-->
+<!--    Gender: <input type="text" style="font-size: 20px; background: #b0e0e6" th:field="*{gender}"><br>-->
+<!--    Goals: <input type="text" style="font-size: 20px; background: #b0e0e6" th:field="*{goals}"><br>-->
 <!--    &lt;!&ndash; 성별은 2중1택 버튼으로 꾸며주고 남성 선택시 1반환, 여성 선택시 2반환&ndash;&gt;-->
 <!--    &lt;!&ndash; 목표는 4중1택 버튼으로 꾸며주고 다이어트 1반환 벌크업 2반환 스트랭스 3반환 지구력 4반환&ndash;&gt;-->
 
@@ -133,5 +132,3 @@
 <!--</form>-->
 <!--</body>-->
 <!--</html>-->
-
-

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Login page</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <style>
+        h1 {text-align: center;}
+        h2 {text-align: center; font-size: 50px;}
+        body {text-align: center;}
+        input {color:rgb(26, 77, 109);
+            font-family: "BMJUA";
+        }
+    </style>
+    <!--<script src = "login.js"></script>-->
+</head><br><br><br>
+<h1>HEalthy Long PERsist</h1>
+<h2> HELPER </h2>
+<br>
+<body bgcolor="#98c3e5" style="color:rgb(19, 52, 72)">
+<div class="container text-center">
+    <div class="login-form d-flex justify-content-center">
+        <div class="col-sm-5" style="margin-top: 30px;">
+            <div class="panel">
+                <p>아이디와 비밀번호를 입력해주세요</p>
+            </div>
+            <div th:if="${param.error}" class="form-group">
+                <span th:text="${exception}" class="alert alert-danger">잘못된 아이디나 암호입니다</span>
+            </div>
+            <form th:action="@{/login_proc}" class="form-signin" method="post">
+                <input type="hidden" th:value="secret" name="secret_key" />
+                <div class="form-group">
+                   ID : <input type="text" class="form-control" name="username" required="required" autofocus="autofocus" style="font-size: 20px; background: #b0e0e6">
+                </div>
+                <div class="form-group">
+                   PW : <input type="password" class="form-control" name="password" required="required" style="font-size: 20px; background: #b0e0e6">
+                </div>
+                <button type="submit" class="btn btn-lg btn-primary btn-block"  style="font-size: 20px; background: #b0e0e6">로그인</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

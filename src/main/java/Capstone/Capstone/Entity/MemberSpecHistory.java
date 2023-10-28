@@ -39,7 +39,7 @@ public class MemberSpecHistory {
         this.his_career = his_career;
     }
 
-    public void setHistory(int make_Year, int make_Month, int make_Day, int his_career, int his_weight){
+    public void setHistory(LocalDate make_date, LocalDateTime make_date_withTime, int his_career, int his_weight){
 //        this.make_Year = LocalDate.now().getYear();
 //        this.make_Month = LocalDate.now().getMonth().getValue();
 //        this.make_Day = LocalDate.now().getDayOfMonth();
