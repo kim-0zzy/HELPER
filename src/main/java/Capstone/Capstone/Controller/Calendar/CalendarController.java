@@ -61,11 +61,12 @@ public class CalendarController {
 
     @Transactional
     @PostMapping("/member/calendar/saveProgress/day={day}")
-    public void saveProgressWithDay(Model model, @PathVariable("day") int day) {
+    public String saveProgressWithDay(Model model, @PathVariable("day") int day) {
         MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
         Calendar calendar = calendarService.findDateRecord(memberSpec.getId(), LocalDate.now().getYear(), LocalDate.now().getMonth().getValue(), day);
         if (calendar == null) {
-            calendarService.saveProgress(new Calendar(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue(), day));
+            Calendar makeCalendar = calendarService.createCalendar(memberSpec, day);
+            calendarService.saveProgress(makeCalendar);
             String SuccessMessage = "success";
             model.addAttribute("message", SuccessMessage);
         }else {
@@ -73,12 +74,14 @@ public class CalendarController {
             model.addAttribute("message", FailMessage);
             // 경고창 출력
         }
+        return "redirect:/mainPage";
     }
 
     @Transactional
     @DeleteMapping("/member/calendar/deleteProgress/day={day}")
-    public void deleteProgress(@PathVariable("day") int day){
+    public String deleteProgress(@PathVariable("day") int day){
         MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
         calendarService.deleteCalendarData(memberSpec.getId(),LocalDate.now().getYear(), LocalDate.now().getMonth().getValue(), day);
+        return "redirect:/mainPage";
     }
 }

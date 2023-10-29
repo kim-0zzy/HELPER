@@ -1,60 +1,9 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <title>Community Notices</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>Community Notices</h1>-->
-
-
-<!--<table>-->
-<!--  <thead>-->
-<!--  <tr>-->
-<!--    <th>No.</th>-->
-<!--    <th>Title</th>-->
-<!--    <th>Author</th>-->
-<!--    <th>Date</th>-->
-<!--  </tr>-->
-<!--  </thead>-->
-
-<!--  <tbody th:if="${allNotice.size() > 0}">-->
-<!--  <tr th:each="notice, noticeNum : ${allNotice}">-->
-<!--    <td th:text="${totalContent + 1} - (((${pageNum} - 1) * 10)) - ${noticeNum.count}"></td>-->
-<!--    <td>-->
-<!--      <a th:text="${notice.title}" th:href="@{/community/detail(id=${notice.id})}"></a>-->
-<!--    </td>-->
-<!--    <td th:text="${notice.ot_Username}"></td>-->
-<!--    <td th:text="${notice.createDate}"></td>-->
-<!--  </tr>-->
-<!--  </tbody>-->
-
-<!--</table>-->
-
-<!--<div>-->
-<!--  startPage <p type="text" th:text="${startPage}"></p>-->
-<!--  endPage <p type="text" th:text="${endPage}"></p>-->
-<!--</div>-->
-
-
-<!--  </body>-->
-
-<!--  <script type="text/javascript">-->
-<!--    function goToPage(pageNumber) {-->
-<!--      // Handle page navigation here-->
-<!--    }-->
-<!--  </script>-->
-
-
-<!--  </html>-->
-
-
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>헬판</title>
   <meta charset="utf-8">
-  <link href="style.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
   <style>
 
     .navbar {
@@ -88,13 +37,15 @@
 
     div.board {
       width: 100%;
-      height: 600px;
+      height: 800px;
       float: right;
       margin-top: -30px;
       border: 1px solid #00000000;
       font-size: 20px;
-      background-color: #e5edf2;
+      background-color: #1c496051;
+      color: #f6e6e6bb;
     }
+
     .d-none{
       display: none;
     }
@@ -102,20 +53,18 @@
     .table{
       font-size :20px;
       width: 100%;
+      height: 800px;
       border: 1px solid rgba(128, 128, 128, 0);
       text-align: center;
-      background-color: #e0eef6;
-      border-collapse: separate;
-      border-spacing: 0px 10px;
+      background-color: #1c496000;
+      padding:0;
+      border-spacing:0px;
+      border:0;
+      border-collapse:collapse;
     }
     /* ********페이징******** */
     .page-nation li{
       list-style: none;
-    }
-
-    .page-wrap {
-      text-align:center;
-      font-size:0;
     }
     .page-nation  {
       display: flex;
@@ -126,16 +75,15 @@
     } /* 게시판 페이지 버튼 */
 
     .page-nation a {
-      display:block;
+      display:inline-block;
       margin: 3px;
-      margin-top: -50px;
-      float:left;
+      margin-top: 10px;
       border:1px solid #e6e6e6;
       width:30px;
       height:30px;
       line-height:28px;
       text-align:center;
-      background-color:#fff;
+      background-color:#f6e6e6bb;
       font-size:17px;
       color:black;
       text-decoration:none;
@@ -144,7 +92,29 @@
     }
     .page-nation a:hover{
       background-color:rgb(222, 184, 184);
-      color:white;
+      color:#f6e6e6bb;
+    }
+    tr{
+      height: 10px;
+    }
+    tr:nth-child(1){
+      background: #1c49608b;
+      font-size: 100%;
+      height: 20px;
+    }
+
+
+    td:nth-child(1){
+      width: 15%;
+    }
+    td:nth-child(2){
+      width: 45%;
+    }
+    td:nth-child(3){
+      width: 25%;
+    }
+    td:nth-child(4){
+      width: 15%;
     }
 
 
@@ -163,7 +133,6 @@
     <a class="nav-link text-light" onclick="window.location.href='/member/myHistory'">나의 기록</a>&nbsp;&nbsp;
     <a class="nav-link text-light" onclick="window.location.href='/member/myRoutine'">나의 루틴</a>&nbsp;&nbsp;
     <a class="nav-link text-light" onclick="window.location.href='/member/myNutrition'">나의 식단</a>&nbsp;&nbsp;
-    <a class="nav-link text-light" onclick="window.location.href='/member/myCalendar'">나의 달력</a>&nbsp;&nbsp;
     <a class="nav-link text-light" onclick="window.location.href='/community/page=1'">헬판</a>
   </div>
 </div>
@@ -172,35 +141,31 @@
   <h1 class="d-none">게시판</h1>
   <div class="board">
     <table class="table">
-      <thead class="thead">
       <tr>
-        <th>No.</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Date</th>
+        <td>No.</td>
+        <td>Title</td>
+        <td>Author</td>
+        <td>Date</td>
       </tr>
-      </thead>
-      <table class="body">
-        <tbody th:if="${allNotice.size() > 0}">
-        <tr th:each="notice, noticeNum : ${allNotice}">
-          <td th:text="${totalContent + 1} - (((${pageNum} - 1) * 10)) - ${noticeNum.count}"></td>
-          <td><a th:text="${notice.title}" th:href="@{/community/detail(id=${notice.id})}"></a></td>
-          <td th:text="${notice.ot_Username}"></td>
-          <td th:text="${notice.createDate}"></td>
-        </tr>
-
-        </tbody>
-      </table>
+      <tbody th:if="${allNotice.size() > 0}">
+      <tr th:each="notice, noticeNum : ${allNotice}">
+        <td th:text="${totalContent + 1} - (((${pageNum} - 1) * 10)) - ${noticeNum.count}"></td>
+        <td><a th:text="${notice.title}" th:href="@{/community/detail(id=${notice.id})}"></a></td>
+        <td th:text="${notice.ot_Username}"></td>
+        <td th:text="${notice.createDate}"></td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 
   <div>
     <div class="page-wrap">
       <ul class="page-nation">
-        <li><a href="/board/list?p=1">1</a></li>
-        <li><a href="/board/list?p=2">2</a></li>
-        <li><a href="/board/list?p=3">3</a></li>
-        <li><a href="/board/list?p=4">4</a></li>
-        <li><a href="/board/list?p=5">5</a></li>
+        <li><a onclick="window.location.href='/community/page=1'">1</a></li>
+        <li><a onclick="window.location.href='/community/page=2'">2</a></li>
+        <li><a onclick="window.location.href='/community/page=3'">3</a></li>
+        <li><a onclick="window.location.href='/community/page=4'">4</a></li>
+        <li><a onclick="window.location.href='/community/page=5'">5</a></li>
       </ul>
     </div>
   </div>

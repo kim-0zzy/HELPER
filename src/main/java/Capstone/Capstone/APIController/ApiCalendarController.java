@@ -29,7 +29,7 @@ public class ApiCalendarController {
         Calendar calendar = calendarService.findDateRecord(memberSpec.getId()
                 , LocalDate.now().getYear(), LocalDate.now().getMonth().getValue(), LocalDate.now().getDayOfMonth());
         if (calendar == null){
-            Calendar makeCalendar = calendarService.createCalendar(memberSpec);
+            Calendar makeCalendar = calendarService.createCalendar_today(memberSpec);
             calendarService.saveProgress(makeCalendar);
         }
     }

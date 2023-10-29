@@ -16,7 +16,8 @@ public interface CalendarService {
     public List<Calendar> findAnnualRecord(Long id, int year) throws NoResultException;
     public List<CalendarDTO> findMonthlyRecord(Long id, int year, int month) throws NoResultException;
     public Calendar findDateRecord(Long id, int year, int month, int day) throws NoResultException;
-    public Calendar createCalendar(MemberSpec memberSpec);
+    public Calendar createCalendar_today(MemberSpec memberSpec);
+    public Calendar createCalendar(MemberSpec memberSpec, int day);
     public void deleteCalendarData(Long id, int year, int month, int day) throws NoResultException;
 
 }

@@ -3,7 +3,7 @@
 <head>
     <title>나의 식단</title>
     <meta charset="utf-8">
-    <link href="style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <style>
 
         .navbar {
@@ -112,7 +112,8 @@
                 <td th:text="|${memberSpecDTO.getGoals()}의 경우 활동 대사량에서 ${calculation_Kcal}Kcal을 추천드립니다.|" colspan="6"> </td>
             </tr>
             <tr>
-                <td colspan="6">[TIP. 활동대사량 구하기] 비활동적인 일상의 경우 기초대사량의 X1.2를 <br><br>중간활동의 경우 X1.35, 활동적인 일상의 경우 최대 X1.5를 권장드립니다.<br><br>
+                <td colspan="6">[TIP_1. 활동대사량 구하기] 비활동적인 일상의 경우 기초대사량의 X1.2를 <br><br>중간활동의 경우 X1.35, 활동적인 일상의 경우 최대 X1.5를 권장드립니다.<br><br>
+                    <br>[TIP_2 WHR] 남성의 경우 0.95, 여성의 경우 0.85 이상부터 복부비만입니다.
                 </td>
             </tr>
         </table>

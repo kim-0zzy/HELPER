@@ -82,10 +82,21 @@ public class CalendarServiceImpl implements CalendarService {
     }
 
     @Override
-    public Calendar createCalendar(MemberSpec memberSpec){
+    public Calendar createCalendar_today(MemberSpec memberSpec){
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonth().getValue();
         int day = LocalDate.now().getDayOfMonth();
+
+        memberSpec.addCareer();
+        Calendar calendar = new Calendar(year, month, day);
+        calendar.setMemberSpec(memberSpec);
+        return calendar;
+    }
+
+    @Override
+    public Calendar createCalendar(MemberSpec memberSpec, int day) {
+        int year = LocalDate.now().getYear();
+        int month = LocalDate.now().getMonth().getValue();
 
         memberSpec.addCareer();
         Calendar calendar = new Calendar(year, month, day);
