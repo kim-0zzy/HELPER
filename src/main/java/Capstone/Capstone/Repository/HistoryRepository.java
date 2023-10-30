@@ -31,7 +31,7 @@ public class HistoryRepository {
                             " join fetch msh.memberSpec ms"+
                             " where ms.id =: id " +
 //                            "order by msh.make_Year DESC, msh.make_Month DESC , msh.make_Day desc "
-                            "order by msh.make_date_withTime DESC"
+                            "order by msh.make_date_withTime ASC"
                             , MemberSpecHistory.class)
                     .setParameter("id", id)
                     .getResultList().get(0);

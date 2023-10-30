@@ -73,9 +73,12 @@ public class MemberSpecController {
             muscleNervous = memberSpecDTO.getCareer() * 3.3;
         }
         // 근육증가량
-        double muscleMass = (memberSpecDTO.getCareer() - memberSpecHistoryDTO.getHis_career()) * 0.3 ;
+        double muscleMass = (memberSpecDTO.getCareer() - memberSpecHistoryDTO.getHis_career()) * 0.03 ;
         // 함께한 시간
         int togetherCareer = memberSpecDTO.getCareer() - memberSpecHistoryDTO.getHis_career();
+        System.out.println("논히스토리"+memberSpecDTO.getCareer());
+        System.out.println("히스토리"+memberSpecHistoryDTO.getHis_career());
+
 
         model.addAttribute("nickName", memberDTO.getRealName());
         model.addAttribute("togetherCareer", togetherCareer);
@@ -140,7 +143,7 @@ public class MemberSpecController {
         MemberSpec memberSpec = memberSpecService.createMemberSpec(inputMemberSpec);
         Long id = memberSpecService.saveMemberSpec(memberSpec);
 
-        return "redirect:/analyzeComplete";
+        return "redirect:/analyzing";
         // 수정할 거 있음
         // ex) 생성 후 루틴보러가기 메시지 띄우는거
     }

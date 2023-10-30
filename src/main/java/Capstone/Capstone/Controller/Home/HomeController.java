@@ -72,5 +72,10 @@ public class HomeController {
         return "/members/simple/analyze_complete";
     }
 
+    @GetMapping("/analyzing")
+    public String analyzing(){
+        return "/members/simple/Loading_ani";
+    }
+
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 
 @Controller
@@ -44,13 +45,18 @@ public class MemberController {
 
     @PostMapping("/signup")
     public String create(CreateMemberForm createMemberForm) throws IllegalStateException{
-        try{
-            Member member = new Member(createMemberForm.getRealName(), createMemberForm.getUsername(), passwordEncoder.encode(createMemberForm.getPassword()));
-            memberService.join(member);
-            return "redirect:/";
-        }catch (IllegalStateException e){
-            return "redirect:/signUp";
+        Member existMember = memberService.findByUsername(createMemberForm.getUsername());
+        if(existMember == null){
+            try{
+                Member member = new Member(createMemberForm.getRealName(), createMemberForm.getUsername(), passwordEncoder.encode(createMemberForm.getPassword()));
+                memberService.join(member);
+            }catch (IllegalStateException e){
+                return "redirect:/signup";
+            }
+        }else{
+            return "redirect:/signup";
         }
+        return "redirect:/";
     }
 
     @GetMapping("/login")
@@ -67,54 +73,12 @@ public class MemberController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response){
+    public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if(authentication != null){
             new SecurityContextLogoutHandler().logout(request,response,authentication);
         }
-        return "redirect:/";
+        response.sendRedirect("/");
     }
-
-//    @GetMapping("/denied")
-//    public String accessDenied(@RequestParam(value = "exception", required = false) String exception, Model model){
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        Member member = (Member)authentication.getPrincipal();
-//        model.addAttribute("username", member.getUsername());
-//        model.addAttribute("exception", exception);
-//
-//        return "/user/login/denied";
-//    }
-
-    //    @GetMapping("/login")
-//    public String loginForm(Model model){
-//        model.addAttribute("loginMemberForm", new LoginMemberForm());
-//        return "/members/loginMemberForm";
-//    }
-//
-//    @PostMapping("/login")
-//    public String login(@Valid LoginMemberForm loginMemberForm, BindingResult result) throws PasswordException, NotFoundIdException {
-//        if(result.hasErrors()){
-//            return "/members/loginMemberForm";
-//        }
-//        String username = loginMemberForm.getUsername();
-//        Member member = memberService.findByUsername(username);
-//        if(member != null){
-//            memberService.login(member, loginMemberForm.getPassword());
-//            ConnectedMember connectedMember = new ConnectedMember(member.getId());
-//            connectedMemberService.connectId(connectedMember);
-//            return "redirect:/mainPage";
-//        }else {
-//            return "redirect:/login?error"; // 지금은 경고 페이지이지만 에러메시지 띄울거임
-//        }
-//    }
-//
-//    @Transactional
-//    @DeleteMapping("/logout")
-//    public String logout(){
-//        Member member = connectedMemberService.findByConnectedMember();
-//        connectedMemberService.disconnectId(member.getId());
-//        return "/lobbyPage";
-//    }
-
 }
