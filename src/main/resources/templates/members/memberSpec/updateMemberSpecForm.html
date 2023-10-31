@@ -60,19 +60,19 @@
             <table border="2" style = "width:80%; font-size: 20px; background-color: #505555;">
                 <tr>
                     <td>키<br><br><p th:text="*{height} + 'cm'"></p>&nbsp<br><br></td>
-                    <td>몸무게<br><br><input type="number" name="weight" th:value="*{weight}" style="width: 60px;">&nbsp;&nbsp;kg<br><br></td>
-                    <td>허리둘레<br><br><input type="number" name="waist" th:value="*{waist}" style="width: 60px;">&nbsp;&nbsp;cm<br><br></td>
-                    <td>엉덩이 둘레<br><br><input type="number" name="hip" style="width: 60px;" th:value="*{hip}">&nbsp;&nbsp;cm<br><br></td>
+                    <td>몸무게<br><br><input type="number" required name="weight" th:value="*{weight}" style="width: 60px;">&nbsp;&nbsp;kg<br><br></td>
+                    <td>허리둘레<br><br><input type="number" required name="waist" th:value="*{waist}" style="width: 60px;">&nbsp;&nbsp;cm<br><br></td>
+                    <td>엉덩이 둘레<br><br><input type="number" required name="hip" style="width: 60px;" th:value="*{hip}">&nbsp;&nbsp;cm<br><br></td>
                 </tr>
                 <tr>
-                    <td>나이<br><br><input type="number" name="age" style="width: 60px;" th:value="*{age}">&nbsp;&nbsp;세<br><br></td>
-                    <td>주 가능 횟수<br><br> 주 <input type="number" name="times" style="width: 60px;" th:value="*{times}" min="1" max="4">&nbsp;&nbsp;회<br><br></td>
+                    <td>나이<br><br><input type="number" required name="age" style="width: 60px;" th:value="*{age}">&nbsp;&nbsp;세<br><br></td>
+                    <td>주 가능 횟수<br><br> 주 <input type="number" required name="times" style="width: 60px;" th:value="*{times}" min="1" max="4">&nbsp;&nbsp;회<br><br></td>
                     
                     <td><label class="reg" for="career">운동 경력</label><br><br>
                         <p th:text="*{career} + '일'"></p><br><br>
                     </td>
                     <td><label class="reg" for="purpose">운동 목적</label><br><br>
-                        <select size="4" id="purpose" style="font-size: 15px;" name="goals" multiple>
+                        <select size="4" id="purpose" required style="font-size: 15px;" name="goals" multiple>
                             <option value="1">다이어트</option>
                             <option value="2">벌크업</option>
                             <option value="3">스트랭스</option>

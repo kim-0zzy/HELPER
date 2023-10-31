@@ -47,8 +47,8 @@
 <form method="post" th:object="${savedMemberSpec}">
     <p>
         <label id="gender"  th:field="*{gender}">성별 : &nbsp;&nbsp;&nbsp;
-        <input type="radio" name="male" value="1" th:field="*{gender}"> 남성 &nbsp;
-        <input type="radio"  name="female" value="2" th:field="*{gender}"> 여성 
+        <input type="radio" name="gender" value="1" th:field="*{gender}" required> 남성 &nbsp;
+        <input type="radio" name="gender" value="2" th:field="*{gender}" required> 여성
         </label> 
     </p>
     <br>
