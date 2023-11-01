@@ -25,10 +25,4 @@ public class ApiMemberController {
         return new MemberDTO(member.getRealName(), member.getUsername());
     }
 
-//    @Transactional
-//    @DeleteMapping("/api/logout")
-//    public void logout(){
-//        Member member = connectedMemberService.findByConnectedMember();
-//        connectedMemberService.disconnectId(member.getId());
-//    }
 }

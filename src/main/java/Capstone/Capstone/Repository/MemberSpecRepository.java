@@ -28,7 +28,7 @@ public class MemberSpecRepository {
     }
 
 
-    public MemberSpec findByMemberId(Long id) { // join 한거임
+    public MemberSpec findByMemberId(Long id) {
         try{
             return em.createQuery("select ms from MemberSpec ms" +
                             " join fetch ms.member m"+

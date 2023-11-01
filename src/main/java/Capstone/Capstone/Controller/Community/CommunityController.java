@@ -52,35 +52,9 @@ public class CommunityController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage",endPage);
 
-//        return "/community/community_home";
         return "/community/community";
     }
 
-//    @GetMapping("/community/pageNum/searchOnTitle")
-//    public String searchOnTitle(Model model,
-//                                @RequestParam("pageNum") int pageNum,
-//                                @RequestParam("title") String title){
-//        Page<Community> page = communityService.findByTitle(title, pageNum);
-//        List<Community> content = page.getContent();
-//        long totalContent = page.getTotalElements();
-//
-//        List<CommunityDTO> searchOnTitleList = new ArrayList<>();
-//
-//        for (Community community : content) {
-//            CommunityDTO communityDTO = CommunityDTO.builder()
-//                    .id(community.getId())
-//                    .ot_Username(community.getOt_Username())
-//                    .title(community.getTitle())
-//                    .content(community.getContent())
-//                    .createDate(community.getCreateDate())
-//                    .build();
-//            searchOnTitleList.add(communityDTO);
-//        }
-//        model.addAttribute("pageNum", (long)pageNum);
-//        model.addAttribute("searchOnTitleList", searchOnTitleList);
-//        model.addAttribute("totalContent", totalContent);
-//        return "/community/searchOnTitle";
-//    }
 
 
     @GetMapping("/community/createNotice")
@@ -118,16 +92,6 @@ public class CommunityController {
         return "/community/askAgain";
     }
 
-//    @Transactional
-//    @DeleteMapping("/community/deleteNotice")
-//    public String deleteNotice(DeleteCommunityForm deleteCommunityForm){
-//        Long id = deleteCommunityForm.getId(); // ${id}
-//        String ot_Password = deleteCommunityForm.getOt_password();
-//        communityService.deleteNotice(id, ot_Password);
-//        // 삭제되었습니다 (확인) 경고창 출력
-//        return "redirect:/community/page=1";
-//    }
-
     @Transactional
     @DeleteMapping("/community/deleteNotice")
     public String deleteNotice(@RequestParam("id") Long id, @RequestParam("password") String password) throws PasswordException {
@@ -136,7 +100,6 @@ public class CommunityController {
             throw new PasswordException("비밀번호가 일치하지 않습니다");
         }
         communityService.deleteNotice(community.getId(), community.getTitle());
-        // 삭제되었습니다 (확인) 경고창 출력
         return "redirect:/community/page=1";
     }
 }

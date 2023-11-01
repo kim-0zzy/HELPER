@@ -68,16 +68,9 @@ public class MemberSpec {
         routine.setMemberSpec(this);
     }
 
-//    public void setCalendar(Calendar calendar){
-//        this.calendar = (List<Calendar>) calendar;
-//    }
-//    public void setHistory(MemberSpecHistory memberSpecHistory){
-//        this.history = (List<MemberSpecHistory>) memberSpecHistory;
-//    }
-
     public void setGender(Gender gender) {
         this.gender = gender;
-    } // 생성자로 만들지 고민해볼 것.
+    }
 
     public void setGoals(Goals goals) {
         this.goals = goals;
@@ -133,9 +126,6 @@ public class MemberSpec {
         return level;
     }
 
-    // 처음 생성 시 Routine은 비워진 채로 생성
-    // 이 후 비즈니스 로직을 통해 Routine을 set.
-    // calendar는 따로 set해주지 않음.
     public MemberSpec(Member member,
                       int height, int weight, int waist, int hip, int career, int age, int times,
                       Gender gender, Goals goals) {

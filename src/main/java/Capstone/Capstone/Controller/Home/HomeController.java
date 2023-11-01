@@ -30,10 +30,10 @@ public class HomeController {
         return member.getId();
     }
 
-    @GetMapping("/testPage")
-    public String testPage(){
-        return "/testPage";
-    }
+//    @GetMapping("/testPage")
+//    public String testPage(){
+//        return "/testPage";
+//    }
 
     @GetMapping("/")
     public String lobby(){
@@ -46,16 +46,16 @@ public class HomeController {
 
     @GetMapping("/mainPage")
     public String mainPage(Model model){
-        // 세개 서비스 모두 사용해서 꾸며야함
+
         MemberSpec memberSpec = memberSpecService.findMemberSpecByMemberId(loadLoginMember());
         if(memberSpec == null){
             return "redirect:/recommend";
         }
-        // 캘린더 리스트 객체
+
         List<CalendarDTO> calendarDTOList = calendarService.findMonthlyRecord(memberSpec.getId(), LocalDate.now().getYear(),LocalDate.now().getMonthValue());
         model.addAttribute("calendarList", calendarDTOList);
 
-        // 커뮤니티 리스트 객체
+
         List<CommunityDTO> communityDTOList = communityService.findRecently5();
         model.addAttribute("recently5Notice", communityDTOList);
 

@@ -12,10 +12,6 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-// Data-jpa의 페이지 start point는 0임.
-// 페이지 offset, limit 이용하려면 PageRequest 구현해야함. 강의 5분부터
-// 22분경 카운트 쿼리 분리하기
-// 반환할 때 무조건 DTO로 변환 26분경
 @Repository
 public interface CommunityRepository extends JpaRepository<Community, Long> {
 
@@ -33,23 +29,4 @@ public interface CommunityRepository extends JpaRepository<Community, Long> {
     @Query("delete from Community c where c.id =:id and c.title =:title")
     void deleteByIdAndTitle(@Param("id") Long id, @Param("title") String title);
 
-// Data-Jpa로 해결할 것임.
-//    public long totalCount(String title){
-//        return em.createQuery("select count(c) from Community c where c.title =: title", Long.class)
-//                .setParameter("title", title)
-//                .getSingleResult();
-//    }
-//    public List findByTitle(String title, int offset, int limit){
-//        return em.createQuery("select c from Community c where c.title =: title order by c.notice_Num DESC")
-//                .setParameter("title", title)
-//                .setFirstResult(offset)
-//                .setMaxResults(limit)
-//                .getResultList();
-//    }
-//    public List findAll(int offset, int limit){
-//        return em.createQuery("select c from Community c order by c.notice_Num desc ")
-//                .setFirstResult(offset)
-//                .setMaxResults(limit)
-//                .getResultList();
-//    }
 }

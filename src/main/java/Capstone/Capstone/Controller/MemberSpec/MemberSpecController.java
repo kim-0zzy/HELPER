@@ -76,8 +76,6 @@ public class MemberSpecController {
         double muscleMass = (memberSpecDTO.getCareer() - memberSpecHistoryDTO.getHis_career()) * 0.03 ;
         // 함께한 시간
         int togetherCareer = memberSpecDTO.getCareer() - memberSpecHistoryDTO.getHis_career();
-        System.out.println("논히스토리"+memberSpecDTO.getCareer());
-        System.out.println("히스토리"+memberSpecHistoryDTO.getHis_career());
 
 
         model.addAttribute("nickName", memberDTO.getRealName());

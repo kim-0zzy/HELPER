@@ -48,12 +48,6 @@
 
 <body bgcolor="#333333" style="color:rgb(255, 255, 255)">
 <form method="post" th:object="${savedMemberSpec}">
-<!--    <p>-->
-<!--        <label id="gender" th:field="*{gender}">성별 : &nbsp;&nbsp;&nbsp;-->
-<!--        <input type="radio" name="male" value="1" th:field="*{gender}"> 남성 &nbsp;-->
-<!--        <input type="radio" name="female" value="2" th:field="*{gender}"> 여성 -->
-<!--        </label> -->
-<!--    </p>-->
     <br>
     <section>
         <article>
@@ -87,51 +81,3 @@
 </form>
 </body>
 </html>
-
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>신체 정보 입력</title>-->
-<!--    <link href="/css/style.css" rel="stylesheet">-->
-<!--    <style>-->
-<!--        h1 {-->
-<!--            text-align: center;-->
-<!--        }-->
-
-<!--        body {-->
-<!--            text-align: center;-->
-<!--            font-size: 20px;-->
-<!--        }-->
-
-<!--        input {-->
-<!--            font-family: "BMJUA";-->
-<!--        }-->
-
-<!--    </style>-->
-<!--    <h2>HEalthy Long PERsist</h2>-->
-<!--    <h1> HELPER </h1>-->
-<!--</head>-->
-<!--<br><br>-->
-<!--<body bgcolor="#98c3e5" style="color:rgb(19, 52, 72)">-->
-<!--<h2>신체 정보 수정</h2>-->
-<!--<br><br>-->
-<!--<form method="post" th:object="${savedMemberSpec}">-->
-<!--    height: <input type="number" th:value="*{height}" style="font-size: 20px; background: #b0e0e6"  name="height"><br>-->
-<!--    weight: <input type="number" th:value="*{weight}" style="font-size: 20px; background: #b0e0e6"  name="weight"><br>-->
-<!--    waist: <input type="number" th:value="*{waist}" style="font-size: 20px; background: #b0e0e6"  name="waist"><br>-->
-<!--    hip: <input type="number" th:value="*{hip}" style="font-size: 20px; background: #b0e0e6"  name="hip"><br>-->
-<!--    age: <input type="number" th:value="*{age}" style="font-size: 20px; background: #b0e0e6"  name="age"><br>-->
-<!--    career: <input type="number" th:value="*{career}" style="font-size: 20px; background: #b0e0e6"  name="career"><br>-->
-<!--    times: <input type="number" th:value="*{times}" style="font-size: 20px; background: #b0e0e6"  name="times" min="1" max="4"><br>-->
-<!--    Gender: <input type="text" th:value="*{gender}" style="font-size: 20px; background: #b0e0e6"  name="gender"><br>-->
-<!--    Goals: <input type="text" th:value="*{goals}" style="font-size: 20px; background: #b0e0e6"  name="goals"><br>-->
-<!--    &lt;!&ndash; 성별은 2중1택 버튼으로 꾸며주고 남성 선택시 1반환, 여성 선택시 2반환&ndash;&gt;-->
-<!--    &lt;!&ndash; 목표는 4중1택 버튼으로 꾸며주고 다이어트 1반환 벌크업 2반환 스트랭스 3반환 지구력 4반환&ndash;&gt;-->
-
-<!--    <input type="submit" style="font-size: 20px; background: #b0e0e6" value="저장하기">-->
-<!--</form>-->
-<!--</body>-->
-<!--</html>-->
-
-

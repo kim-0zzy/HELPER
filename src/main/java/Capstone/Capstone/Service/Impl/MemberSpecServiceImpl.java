@@ -35,9 +35,7 @@ public class MemberSpecServiceImpl implements MemberSpecService {
         Routine routine = createRoutine(memberSpec);
         memberSpec.setRoutine(routine);
         return memberSpec;
-        // 컨트롤러에서는 MemberSpec을 프론트에서 받아온 정보를 토대로 생성자를 통해 생성 한 후
-        // 해당 로직을 진행해 memberSpec을 영속화시킴.
-        // memberSpec() -> createMemberSpec() -> saveMemberSpec(memberSpec)
+
     }
 
     @Override
@@ -48,7 +46,7 @@ public class MemberSpecServiceImpl implements MemberSpecService {
         memberSpec.setGoals(goals);
         memberSpec.setLevel(memberSpec.makeLevel());
         updateRoutine(memberSpec);
-        // -> 컨트롤러에서 반환할떄 dto.getBasic, getTimes 등등 해줘야함
+
     }
 
     @Override
