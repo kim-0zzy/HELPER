@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Entity
 @Getter
@@ -50,7 +51,6 @@ public class Routine {
     }
     public void makePartition(MemberSpec memberSpec){
         Goals goals = memberSpec.getGoals();
-//        int times = memberSpec.getTimes();
         Level level = memberSpec.getLevel();
         String aerobic = switch (goals) {
             case DIET -> "20min";
@@ -116,10 +116,10 @@ public class Routine {
         this.setNutrition(nutrition);
     }
     public static class RoutineMap{
-        Map<String, String > back = new HashMap<>();
-        Map<String, String > chest = new HashMap<>();
-        Map<String, String > shoulder = new HashMap<>();
-        Map<String, String > leg = new HashMap<>();
+        Map<String, String > back = new ConcurrentHashMap<>();
+        Map<String, String > chest = new ConcurrentHashMap<>();
+        Map<String, String > shoulder = new ConcurrentHashMap<>();
+        Map<String, String > leg = new ConcurrentHashMap<>();
 
         public RoutineMap(){
             back.put("Main", "PullUp");

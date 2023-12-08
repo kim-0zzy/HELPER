@@ -55,7 +55,6 @@ public class CalendarController {
         }else {
             String FailMessage = "이미 존재하는 데이터입니다. 삭제하시겠습니까?";
             model.addAttribute("message", FailMessage);
-            // 경고창 출력
         }
     }
 

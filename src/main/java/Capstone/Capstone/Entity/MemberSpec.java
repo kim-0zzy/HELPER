@@ -40,7 +40,7 @@ public class MemberSpec {
     private int weight;
     private int waist;
     private int hip;
-    private int career; // 커리어 누적로직, 업데이트 로직 구현
+    private int career;
     private int age;
     private int times;
     @Enumerated(EnumType.STRING)

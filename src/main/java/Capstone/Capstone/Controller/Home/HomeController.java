@@ -30,10 +30,6 @@ public class HomeController {
         return member.getId();
     }
 
-//    @GetMapping("/testPage")
-//    public String testPage(){
-//        return "/testPage";
-//    }
 
     @GetMapping("/")
     public String lobby(){

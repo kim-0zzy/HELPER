@@ -142,8 +142,7 @@ public class MemberSpecController {
         Long id = memberSpecService.saveMemberSpec(memberSpec);
 
         return "redirect:/analyzing";
-        // 수정할 거 있음
-        // ex) 생성 후 루틴보러가기 메시지 띄우는거
+
     }
 
     @GetMapping("/member/updateMS")

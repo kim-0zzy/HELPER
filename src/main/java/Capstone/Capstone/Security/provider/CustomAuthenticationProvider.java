@@ -29,20 +29,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if(!passwordEncoder.matches(password, memberContext.getMember().getPassword())){
             throw new BadCredentialsException("BadCredentialsException");
         }
-        // 로그인 시도 시 시크릿 키 검증 테스트 ( 인증부가기능 3-9 ) ( 캡스톤에선 빼고 쓸 것 ) 이거 넣으면 로그인 폼에서 데이터 안넘어가는 버그 있음
-        // Common package
-//        FormWebAuthenticationDetails formWebAuthenticationDetails = (FormWebAuthenticationDetails) authentication.getDetails();
-//        String secretKey = formWebAuthenticationDetails.getSecretKey();
-//        if(secretKey == null || "secret".equals(secretKey)){
-//            throw new InsufficientAuthenticationException("InsufficientAuthenticationException");
-//        }
-        // 로그인 시도 시 시크릿 키 검증 테스트
-
-        // 3-5 9분대 UsernamePasswordAuthenticationToken 의 2가지 생성자 역할 확인
         return new UsernamePasswordAuthenticationToken(memberContext.getMember(), null, memberContext.getAuthorities());
     }
 
-    @Override// 3-5 3분대 다시 듣기 (역할이 뭔지)
+    @Override
     public boolean supports(Class<?> authentication) {
         return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
     }

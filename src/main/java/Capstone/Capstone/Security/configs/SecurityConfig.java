@@ -25,15 +25,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
     @Autowired
     private AuthenticationFailureHandler customAuthenticationFailureHandler;
-//    @Autowired
-//    private AccessDeniedHandler customAuthenticationAccessDinedHandler;
-//    @Autowired
-//    private AuthenticationDetailsSource authenticationDetailsSource;
-
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        // 보안필터 바깥에서 적용됨. 보안 필터에 진입조차 안함
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
         web.ignoring().antMatchers("/static/js/**","/static/css/**", "/static/fonts/**" , "/static/img/**");
     }
@@ -42,14 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder(){
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
-
-//    @Autowired
-//    private UserDetailsService userDetailsService;
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService);
-//    }
-
     @Bean
     public AuthenticationProvider authenticationProvider(){
         return new CustomAuthenticationProvider();
