@@ -32,14 +32,36 @@ Web App
 
 프로젝트 환경
 ------
+![구조도](https://github.com/kim-0zzy/HELPER/assets/117063670/a8446d27-493b-443b-92e0-34e361f00e61)
 
-------
-역할 분담 
-------
 
+역할
 ------
+* 팀원1
+  - HTML, JS, CSS를 이용한 페이지 구성
+  
+* 본인
+  - JAVA Spring, postgreSQL을 이용한 서버 구성
+  - Thymeleaf를 이용한 페이지 구성
+  
+
 웹 사이트
 ------
-기능 1
-기능 2
-기능 3
+로그인 페이지
+![로그인페이지](https://github.com/kim-0zzy/HELPER/assets/117063670/050027ea-ced9-4be3-99b6-673dc83756b4)
+---
+
+---
+루틴페이지
+![루틴페이지](https://github.com/kim-0zzy/HELPER/assets/117063670/52becec3-49af-4863-9976-a084fc9e3c08)
+---
+
+---
+영양소페이지
+![식단페이지](https://github.com/kim-0zzy/HELPER/assets/117063670/7731e94b-f160-4346-b466-531cef7e70da)
+---
+
+---
+체중추적그래프
+![기록페이지](https://github.com/kim-0zzy/HELPER/assets/117063670/3a245861-25d3-4e07-8782-dca08cdbbe4e)
+---
