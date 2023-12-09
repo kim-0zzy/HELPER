@@ -35,6 +35,10 @@ Web App
 ![구조도](https://github.com/kim-0zzy/HELPER/assets/117063670/a8446d27-493b-443b-92e0-34e361f00e61)
 
 
+테이블
+------
+![image](https://github.com/kim-0zzy/HELPER/assets/117063670/8f03c57f-92f9-4930-ba9b-c6b598d5d988)
+
 역할
 ------
 * 팀원1
