@@ -65,3 +65,9 @@ Web App
 체중추적그래프
 ![기록페이지](https://github.com/kim-0zzy/HELPER/assets/117063670/3a245861-25d3-4e07-8782-dca08cdbbe4e)
 ---
+
+보완점
+-----
+  * SOLID, RESTful 원칙에 잘 부합하게 리팩토링
+  * API 통신 지원
+  * 하드코딩된 루틴 맵 변경
